@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<configurations>
+
+  <configuration id="configuration_0">
+    <connection class="185076" desc="Texas Instruments XDS110 USB Debug Probe" id="Texas Instruments XDS110 USB Debug Probe" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+      <connectionType Type="TIXDS110" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="DiagnosticCommand" Name="Diagnostic Command" Type="hiddenfield" Value="%ccs_base%/common/uscif/dbgjtag -f %boarddatafile% -rv -o -S integrity" id="Diagnostic Command" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="SEPK.POD_DRVR" Name="Debug Probe Filename" Type="hiddenfield" Value="libjioxds110.so" id="Debug Probe Filename" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="SEPK.POD_PORT" Name="Debug Probe Selection" Type="choicelist" Value="0" id="Debug Probe Selection" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+        <choice Name="Only one XDS110 installed" value="0"/>
+        <choice Name="Select by serial number" value="0">
+          <property ID="SEPK.POD_SERIAL" Name="-- Enter the serial number" Type="stringfield" Value="Use xdsdfu to get or set serial number" id="-- Enter the serial number"/>
+        </choice>
+      </property>
+      <property ID="SEPK.POD_SUPPLY" Name="Power Selection" Type="choicelist" Value="0" id="Power Selection" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+        <choice Name="Target supplied power" value="0">
+          <property ID="SEPK.POD_VOLTAGE_SELECTION" Name="Voltage level" Type="choicelist" Value="0" id="Voltage Selection">
+            <choice Name="Default" value="0">
+              <property ID="SEPK.POD_VOLTAGE" Name="" Type="hiddenfield" Value="0" id="Voltage Level"/>
+            </choice>
+            <choice Name="User specified value" value="1">
+              <property ID="SEPK.POD_VOLTAGE" Name="--Enter voltage (1.8V to 3.6V)" Type="stringfield" Value="" id="Voltage Level"/>
+            </choice>
+          </property>
+        </choice>
+        <choice Name="Probe supplied power" value="1">
+          <property ID="SEPK.POD_VOLTAGE_SELECTION" Name="Voltage level" Type="hiddenfield" Value="1" id="Voltage Selection"/>
+          <property ID="SEPK.POD_VOLTAGE" Name="--Enter voltage (1.8V to 3.6V)" Type="stringfield" Value="" id="Voltage Level"/>
+          <property ID="SEPK.POD_POWER_ISOLATE" Name="Power Isolation" Type="choicelist" Value="0" id="Power Isolation">
+            <choice Name="Remove power at final disconnect" value="0"/>
+            <choice Name="Keep power at final disconnect" value="1"/>
+          </property>
+        </choice>
+      </property>
+      <property ID="PRODUCT.TITLE" Name="Title" Type="hiddenfield" Value="Texas Instruments XDS110 USB" id="Title" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="PRODUCT.ALIAS" Name="Alias" Type="hiddenfield" Value="TI_XDS110_USB" id="Alias" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="PRODUCT.NAME" Name="Name" Type="hiddenfield" Value="XDS110" id="Name" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="USCIF.TDOEDGE" Name="TMS/TDO Output Timing" Type="hiddenfield" Value="FALL" id="TMS/TDO Output Timing" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml"/>
+      <property ID="USCIF.TCLK_PROGRAM" Name="The JTAG TCLK Frequency (MHz)" Type="choicelist" Value="0" id="The JTAG TCLK Frequency (MHz)" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+        <choice Name="Fixed default 5.5MHz frequency" id="Fixed default 2.5MHz frequency" value="DEFAULT">
+          <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="5.5MHz" id="unused"/>
+        </choice>
+        <choice Name="Fixed with user specified value" value="SPECIFIC">
+          <property ID="USCIF.TCLK_FREQUENCY" Name="-- Enter a value from 100.0kHz to 5.5MHz" Type="stringfield" Value="5.5MHz" id="-- Enter a value from 100.0kHz to 2.5MHz"/>
+        </choice>
+        <choice Name="Fixed with user selected faster value" value="SPECIFIC">
+          <property ID="USCIF.TCLK_FREQUENCY" Name="-- Select the TCK frequency setting" Type="choicelist" Value="0" id="Select TCK Setting">
+            <choice Name="Fixed 14.0MHz frequency" value="0">
+              <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="14.0MHz" id="unused"/>
+            </choice>
+            <choice Name="Fixed 12.0MHz frequency" value="1">
+              <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="12.0MHz" id="unused"/>
+            </choice>
+            <choice Name="Fixed 10.0MHz frequency" value="2">
+              <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="10.0MHz" id="unused"/>
+            </choice>
+            <choice Name="Fixed 8.5MHz frequency" value="3">
+              <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="8.5MHz" id="unused"/>
+            </choice>
+            <choice Name="Fixed 5.5MHz frequency" value="4">
+              <property ID="USCIF.TCLK_FREQUENCY" Name="unused" Type="hiddenfield" Value="5.5MHz" id="unused"/>
+            </choice>
+          </property>
+        </choice>
+      </property>
+      <property ID="USCIF.JTAG_ISOLATE" Name="JTAG Signal Isolation" Type="choicelist" Value="1" id="JTAG Signal Isolation" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+        <choice Name="Don't isolate JTAG signals at final disconnect" value="disable"/>
+        <choice Name="Do isolate JTAG signals at final disconnect" value="enable"/>
+      </property>
+      <property ID="DOT7.DTS_USAGE" Type="choicelist" Value="0" desc="JTAG / SWD / cJTAG Mode" id="SWD Mode Settings" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/connections/TIXDS110_Connection.xml">
+        <choice Name="JTAG (1149.1), SWD and cJTAG are disabled" value="nothing">
+          <property ID="SWD.SWD_DEBUG" Type="hiddenfield" Value="disabled" desc="" id="SWD Debug"/>
+          <property ID="SWD.SWO_DATA" Type="hiddenfield" Value="aux_uart" desc="" id="SWO Data"/>
+        </choice>
+        <choice Name="SWD Mode - Aux COM port is target UART port" value="nothing">
+          <property ID="SWD.SWD_DEBUG" Type="hiddenfield" Value="enabled" desc="" id="SWD Debug"/>
+          <property ID="SWD.SWO_DATA" Type="hiddenfield" Value="aux_uart" desc="" id="SWO Data"/>
+        </choice>
+        <choice Name="SWD Mode - Aux COM port is target TDO pin" value="nothing">
+          <property ID="SWD.SWD_DEBUG" Type="hiddenfield" Value="enabled" desc="" id="SWD Debug"/>
+          <property ID="SWD.SWO_DATA" Type="hiddenfield" Value="tdo_pin" desc="" id="SWO Data"/>
+        </choice>
+        <choice Name="cJTAG (1149.7) 4-pin standard mode" value="enable">
+          <property ID="DOT7.DTS_TYPE" Name="The Converter Type" Type="hiddenfield" Value="xds110" id="The Converter Type"/>
+          <property ID="DOT7.DTS_PROGRAM" Name="The Debug Probe Clock" Type="hiddenfield" Value="emulator" id="The Debug Probe Clock"/>
+          <property ID="DOT7.DTS_FREQUENCY" Name="The Converter 1149.7 Frequency Value" Type="hiddenfield" Value="1.0MHz" id="The Converter 1149.7 Frequency Value"/>
+          <property ID="DOT7.TS_FORMAT" Name="The Target Scan Format" Type="hiddenfield" Value="jscan0" id="The Target Scan Format"/>
+          <property ID="DOT7.TS_PIN_WIDTH" Name="The Target Pin Width" Type="hiddenfield" Value="all_four" id="The Target Pin Width"/>
+          <property ID="SWD.SWD_DEBUG" Type="hiddenfield" Value="disabled" desc="" id="SWD Debug"/>
+          <property ID="SWD.SWO_DATA" Type="hiddenfield" Value="aux_uart" desc="" id="SWO Data"/>
+        </choice>
+        <choice Name="cJTAG (1149.7) 2-pin advanced modes" value="enable">
+          <property ID="DOT7.DTS_TYPE" Name="The Converter Type" Type="hiddenfield" Value="xds110" id="The Converter Type"/>
+          <property ID="DOT7.DTS_PROGRAM" Name="The Debug Probe Clock" Type="hiddenfield" Value="emulator" id="The Debug Probe Clock"/>
+          <property ID="DOT7.DTS_FREQUENCY" Name="The Converter 1149.7 Frequency Value" Type="hiddenfield" Value="1.0MHz" id="The Converter 1149.7 Frequency Value"/>
+          <property ID="DOT7.TS_FORMAT" Name="Target Scan Format" Type="choicelist" Value="1" id="Target Scan Format">
+            <choice Name="OSCAN1 format - non-adaptive scans" value="oscan1"/>
+            <choice Name="OSCAN2 format - faster transitions" value="oscan2"/>
+          </property>
+          <property ID="DOT7.TS_PIN_WIDTH" Name="The Target Pin Width" Type="hiddenfield" Value="only_two" id="The Target Pin Width"/>
+          <property ID="SWD.SWD_DEBUG" Type="hiddenfield" Value="disabled" desc="" id="SWD Debug"/>
+          <property ID="SWD.SWO_DATA" Type="choicelist" Value="0" desc="Auxiliary COM Port Connection" id="XDS110 Aux Port">
+            <choice Name="Aux COM port is target UART port" value="aux_uart"/>
+            <choice Name="Aux COM port is target TDO pin" value="tdo_pin"/>
+          </property>
+        </choice>
+      </property>
+      <drivers id="drivers" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cs_dap.xml">
+        <isa ProcID="0x38000405" Type="CS_DAP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cs_dap.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cs_dap.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="DAP TAP ID" Type="numericfield" Value="0x0" id="DAP TAP ID"/>
+            <property ID="subpath.address" Name="Port Number" SubPath="true" Type="numericfield" Value="0x0" id="Port Number"/>
+            <property ID="subpath.initial" Name="Initial Configuration" SubPath="true" Type="choicelist" Value="1" id="Initial Configuration">
+              <choice Name="Yes" value="1"/>
+              <choice Name="No" value="0"/>
+            </property>
+            <property ID="subpath.custom" Name="Custom Configuration" SubPath="true" Type="choicelist" Value="1" id="Custom Configuration">
+              <choice Name="Yes" value="1"/>
+              <choice Name="No" value="0"/>
+            </property>
+            <property ID="subpath.type" Name="Type" SubPath="true" Type="choicelist" Value="0x1" id="Type">
+              <choice Name="debug" value="debug"/>
+              <choice Name="legacy" value="legacy"/>
+              <choice Name="virtual" value="virtual"/>
+            </property>
+            <property ID="subpath.force" Name="Force Configuration" SubPath="true" Type="choicelist" Value="1" id="Force Configuration">
+              <choice Name="No" value="0"/>
+              <choice Name="Yes" value="1"/>
+            </property>
+            <property ID="subpath.pseudo" Name="Pseudo" SubPath="true" Type="choicelist" Value="0" id="Pseudo">
+              <choice Name="Yes" value="1"/>
+              <choice Name="No" value="0"/>
+            </property>
+            <property ID="device.Revision" Name="Device Management" Type="choicelist" Value="0" id="Device Management">
+              <choice Name="Legacy" value="Legacy"/>
+              <choice Name="Power-AP" value="Power-AP"/>
+            </property>
+            <property Type="hiddenfield" Value="0x1" id="DAP AP Configuration"/>
+            <property ID="device.SystemResetWhileConnected" Name="Support System Reset While Connected" Type="hiddenfield" Value="1" id="Support System Reset While Connected"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Block Target Access on Free Run"/>
+            <property Type="hiddenfield" Value="false" id="capableDebugPowerDisconnectOpts"/>
+          </driver>
+        </isa>
+        <isa ProcID="0x75803800" Type="Cortex_M3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cortexM.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cortexm.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="Access Port Designator" Type="numericfield" Value="0x02000003" id="Access Port Designator"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset Free Run"/>
+            <property Type="hiddenfield" Value="0" id="Block Target Access on Free Run"/>
+            <property ID="device.traceId" Name="TraceDeviceId" Type="numericfield" Value="0x0" id="TraceDeviceId"/>
+            <property Type="hiddenfield" Value="true" id="supportsNonIntrusiveConnect"/>
+            <property Type="hiddenfield" Value="true" id="haltOnConnectByDefault"/>
+          </driver>
+        </isa>
+        <isa ProcID="0x75803800" Type="Cortex_M4" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cortexM.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cortexm.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="Access Port Designator" Type="numericfield" Value="0x02000003" id="Access Port Designator"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset Free Run"/>
+            <property ID="device.traceId" Name="TraceDeviceId" Type="numericfield" Value="0x0" id="TraceDeviceId"/>
+            <property Type="hiddenfield" Value="true" id="supportsNonIntrusiveConnect"/>
+            <property Type="hiddenfield" Value="true" id="haltOnConnectByDefault"/>
+          </driver>
+        </isa>
+        <isa ProcID="0x75803800" Type="Cortex_M4F" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cortexM.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cortexm.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="Access Port Designator" Type="numericfield" Value="0x02000003" id="Access Port Designator"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset Free Run"/>
+            <property ID="device.traceId" Name="TraceDeviceId" Type="numericfield" Value="0x0" id="TraceDeviceId"/>
+            <property Type="hiddenfield" Value="true" id="supportsNonIntrusiveConnect"/>
+            <property Type="hiddenfield" Value="true" id="haltOnConnectByDefault"/>
+          </driver>
+        </isa>
+        <isa ProcID="0x75803800" Type="CORTEX_M4_CC" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cortexM.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cortexm.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="Access Port Designator" Type="numericfield" Value="0x02000003" id="Access Port Designator"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset Free Run"/>
+            <property ID="device.traceId" Name="TraceDeviceId" Type="numericfield" Value="0x0" id="TraceDeviceId"/>
+            <property Type="hiddenfield" Value="true" id="supportsNonIntrusiveConnect"/>
+            <property Type="hiddenfield" Value="true" id="haltOnConnectByDefault"/>
+          </driver>
+        </isa>
+        <isa ProcID="0x75803800" Type="CORTEX_M4_432" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/drivers/tixds510cortexM.xml">
+          <driver file="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/drivers/libtixds510cortexm.so">
+            <connectionType Type="TIXDS510"/>
+            <connectionType Type="TIXDS110"/>
+            <property ID="device.identify" Name="Access Port Designator" Type="numericfield" Value="0x02000003" id="Access Port Designator"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset"/>
+            <property Type="hiddenfield" Value="0" id="Use Board Reset Free Run"/>
+            <property ID="device.traceId" Name="TraceDeviceId" Type="numericfield" Value="0x0" id="TraceDeviceId"/>
+            <property Type="hiddenfield" Value="true" id="supportsNonIntrusiveConnect"/>
+            <property Type="hiddenfield" Value="true" id="haltOnConnectByDefault"/>
+          </driver>
+        </isa>
+      </drivers>
+      <platform id="platform_0">
+        <device desc="MSP432P401R" description="ARM Cortex-M4F MCU" id="MSP432P401R" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/devices/msp432p401r.xml" partnum="MSP432P401R">
+          <property Type="stringfield" Value="com.ti.ccstudio.project.templates.blink_msp432:templates/msp432/blink/blink.c;com.ti.ccstudio.project.templates.blinkCMSISStyle_msp432:templates/msp432/cmsis/blink.c;com.ti.common.project.core.emptyProjectWithMainTemplate_gnu_msp432:templates/msp432/empty/main.c;" id="TemplateFileOverrides" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/devices/msp432p401r.xml"/>
+          <property Type="stringfield" Value="MSP432 Family" id="FilterString" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/devices/msp432p401r.xml"/>
+          <property Type="stringfield" Value="true" id="supportBSLMemory" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/devices/msp432p401r.xml"/>
+          <router desc="CS_DAP_0" description="CS_DAP Router" id="CS_DAP_0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/routers/cs_dap.xml" isa="CS_DAP">
+            <register acronym="IP_DUMMY" description="" id="IP_DUMMY" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/routers/cs_dap.xml" width="32"/>
+            <register acronym="DEVICE_ID" description="" id="DEVICE_ID" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/routers/cs_dap.xml" width="32"/>
+            <module accessnumbytes="4" baseaddr="0" description="" hidden="true" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/cs_dap_NotVisible.xml" permissions="p" requestor="CS_DAP" size="00"/>
+            <property Type="hiddenfield" Value="1" id="Use Board Reset"/>
+            <jtag>
+              <property Type="choicelist" Value="0" id="The Converter Usage"/>
+              <property Type="choicelist" Value="2" id="SWD Mode Settings">
+                <choice Name="SWD Mode - Aux COM port is target TDO pin"/>
+              </property>
+              <property Type="choicelist" Value="2" id="The JTAG TCLK Frequency (MHz)">
+                <choice Name="Fixed with user selected faster value" value="SPECIFIC">
+                  <property Type="choicelist" Value="2" id="Select TCK Setting"/>
+                </choice>
+              </property>
+              <property Type="choicelist" Value="4" id="The cJTAG / SWD Features">
+                <choice Name="SWD Mode - Aux COM port is target TDO pin"/>
+              </property>
+              <property Type="choicelist" Value="2" id="The cJTAG Converter Features">
+                <choice Name="Generate 1149.7 4-pin standard mode"/>
+              </property>
+            </jtag>
+            <property Type="filepathfield" Value="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/gel/msp432_factory_reset.gel" id="GEL File"/>
+            <subpath id="subpath_0">
+              <property Type="numericfield" Value="16" id="Port Number"/>
+              <property Type="choicelist" Value="1" id="Initial Configuration"/>
+              <property Type="choicelist" Value="1" id="Customer Configuration"/>
+              <cpu desc="CORTEX_M4_0" description="Cortex M4 CPU" id="CORTEX_M4_0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" isa="CORTEX_M4_432">
+                <register acronym="PC" description="Program Counter" id="PC" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R13" description="General Purpose Register 13 - Stack Pointer" id="SP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R14" description="General Purpose Register 14 - Link Register" id="LR" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="xPSR" description="Stores the status of interrupt enables and critical processor status signals" id="xPSR" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32">
+                  <bitfield begin="31" description="Stores bit 31 of the result of the instruction. In other words stores the sign of the number" end="31" id="N" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="30" description="Is set to 1 if the result of the operation is zero else stays 0" end="30" id="Z" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="29" description="Stores the value of the carry bit if it occurred in an addition or the borrow bit in a subtraction. In a shift stores the last bit shifted out." end="29" id="C" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="28" description="Set to 1 if an overflow occurred " end="28" id="V" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="27" description="Indicates whether an overflow/saturation occurred in the enhanced DSP instructions" end="27" id="Q" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="26" description="ICI/IT - bit26-bit25 " end="25" id="ICI_IT_2" range="" resetval="0" rwaccess="R" width="2"/>
+                  <bitfield begin="24" description="Thumb State " end="24" id="T" range="" resetval="1" rwaccess="R" width="1"/>
+                  <bitfield begin="23" description="Reserved " end="16" id="RESV" range="" resetval="0" rwaccess="R" width="8"/>
+                  <bitfield begin="15" description="ICI/IT - bit15-bit10 " end="10" id="ICI_IT_1" range="" resetval="0" rwaccess="R" width="6"/>
+                  <bitfield begin="9" description="Reserved " end="9" id="RESV2" range="" resetval="0" rwaccess="R" width="1"/>
+                  <bitfield begin="8" description="Exception Number " end="0" id="EXCEPTION" range="" resetval="0" rwaccess="R" width="9"/>
+                </register>
+                <register acronym="R0" description="General Purpose Register 0" id="R0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R1" description="General Purpose Register 1" id="R1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R2" description="General Purpose Register 2" id="R2" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R3" description="General Purpose Register 3" id="R3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R4" description="General Purpose Register 4" id="R4" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R5" description="General Purpose Register 5" id="R5" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R6" description="General Purpose Register 6" id="R6" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R7" description="General Purpose Register 7" id="R7" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R8" description="General Purpose Register 8" id="R8" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R9" description="General Purpose Register 9" id="R9" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R10" description="General Purpose Register 10" id="R10" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R11" description="General Purpose Register 11" id="R11" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R12" description="General Purpose Register 12" id="R12" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R13" description="General Purpose Register 13" id="R13" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="R14" description="General Purpose Register 14" id="R14" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="MSP" description="MSP Register" id="MSP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="PSP" description="PSP Register" id="PSP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="DSP" description="DSP Register" id="DSP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32"/>
+                <register acronym="CTRL_FAULT_BASE_PRI" description="CM4 Special Registers" id="CTRL_FAULT_BASE_PRI" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/cpus/cortex_m4.xml" width="32">
+                  <bitfield begin="31" description="Control" end="24" id="CONTROL" range="" resetval="0" rwaccess="RW" width="8"/>
+                  <bitfield begin="23" description="Faultmask" end="16" id="FAULTMASK" range="" resetval="0" rwaccess="RW" width="8"/>
+                  <bitfield begin="15" description="Basepri" end="8" id="BASEPRI" range="" resetval="0" rwaccess="RW" width="8"/>
+                  <bitfield begin="7" description="Primask" end="0" id="PRIMASK" range="" resetval="0" rwaccess="RW" width="8"/>
+                </register>
+                <module accessnumbytes="4" baseaddr="0" description="" hidden="true" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/cortexM4_NotVisible.xml" permissions="p" requestor="Cortex_M4" size="00"/>
+                <module accessnumbytes="4" baseaddr="0x40012000" endaddr="0x40012157" id="ADC14" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/ADC14_356.0.xml" permissions="p" size="0x0158"/>
+                <module accessnumbytes="2" baseaddr="0x40003C00" endaddr="0x40003C0F" id="AES256" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/AES256_356.0.xml" permissions="p" size="0x0010"/>
+                <module accessnumbytes="2" baseaddr="0x40005400" endaddr="0x4000540F" id="CAPTIO0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/CAPTIO_356.0.xml" permissions="p" size="0x0010"/>
+                <module accessnumbytes="2" baseaddr="0x40005800" endaddr="0x4000580F" id="CAPTIO1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/CAPTIO_356.0.xml" permissions="p" size="0x0010"/>
+                <module accessnumbytes="2" baseaddr="0x40003400" endaddr="0x4000340F" id="COMP_E0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/COMP_E_356.0.xml" permissions="p" size="0x0010"/>
+                <module accessnumbytes="2" baseaddr="0x40003800" endaddr="0x4000380F" id="COMP_E1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/COMP_E_356.0.xml" permissions="p" size="0x0010"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="COREDEBUG" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/COREDEBUG_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="2" baseaddr="0x40004000" endaddr="0x4000401F" id="CRC32" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/CRC32_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="4" baseaddr="0x40010400" endaddr="0x40010467" id="CS" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/CS_356.0.xml" permissions="p" size="0x0068"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PA" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PA_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P1_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P2" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P2_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PB" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PB_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P3_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P4" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P4_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PC" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PC_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P5" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P5_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P6" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P6_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PD" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PD_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P7" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P7_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P8" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P8_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PE" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PE_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P9" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P9_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="P10" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/P10_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="PJ" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PJ_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40004C00" description="" id="DIO" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/DIO_356.0.xml" permissions="p" requestor="MSP432" size="0x0040"/>
+                <module accessnumbytes="4" baseaddr="0x4000E000" endaddr="0x4000F04F" id="DMA" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/DMA_356.0.xml" permissions="p" size="0x1050"/>
+                <module accessnumbytes="4" baseaddr="0xE0001000" endaddr="0xE0001FFF" id="DWT" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/DWT_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="2" baseaddr="0x40001000" endaddr="0x4000101F" id="EUSCI_A0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_A_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="2" baseaddr="0x40001400" endaddr="0x4000141F" id="EUSCI_A1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_A_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="2" baseaddr="0x40001800" endaddr="0x4000181F" id="EUSCI_A2" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_A_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="2" baseaddr="0x40001C00" endaddr="0x40001C1F" id="EUSCI_A3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_A_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="2" baseaddr="0x40002000" endaddr="0x4000202F" id="EUSCI_B0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_B_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40002400" endaddr="0x4000242F" id="EUSCI_B1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_B_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40002800" endaddr="0x4000282F" id="EUSCI_B2" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_B_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40002C00" endaddr="0x40002C2F" id="EUSCI_B3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/EUSCI_B_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="4" baseaddr="0x40011000" endaddr="0x40011123" id="FLCTL" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/FLCTL_356.0.xml" permissions="p" size="0x0124"/>
+                <module accessnumbytes="4" baseaddr="0x00200000" endaddr="0x00200FFF" id="FL_BOOTOVER_MAILBOX" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/FL_BOOTOVER_MAILBOX_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE0002000" endaddr="0xE0002FFF" id="FPB" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/FPB_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="FPU" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/FPU_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE0000000" endaddr="0xE0000FFF" id="ITM" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/ITM_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="MPU" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/MPU_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="NVIC" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/NVIC_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0x40010000" endaddr="0x40010013" id="PCM" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PCM_356.0.xml" permissions="p" size="0x0014"/>
+                <module accessnumbytes="2" baseaddr="0x40005000" endaddr="0x4000503F" id="PMAP" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PMAP_356.0.xml" permissions="p" size="0x0040"/>
+                <module accessnumbytes="4" baseaddr="0x40010800" endaddr="0x4001083F" id="PSS" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/PSS_356.0.xml" permissions="p" size="0x0040"/>
+                <module accessnumbytes="2" baseaddr="0x40003000" endaddr="0x4000300B" id="REF_A" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/REF_A_356.0.xml" permissions="p" size="0x000C"/>
+                <module accessnumbytes="4" baseaddr="0xE0042000" endaddr="0xE0042127" id="RSTCTL" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/RSTCTL_356.0.xml" permissions="p" size="0x0128"/>
+                <module accessnumbytes="2" baseaddr="0x40004400" endaddr="0x4000441F" id="RTC_C" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/RTC_C_356.0.xml" permissions="p" size="0x0020"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="SCB" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/SCB_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="SCnSCB" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/SCnSCB_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0xE0043000" endaddr="0xE0044027" id="SYSCTL" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/SYSCTL_356.0.xml" permissions="p" size="0x1028"/>
+                <module accessnumbytes="4" baseaddr="0xE000E000" endaddr="0xE000EFFF" id="SYSTICK" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/SYSTICK_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="4" baseaddr="0x4000C000" endaddr="0x4000CF0B" id="TIMER32" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/Timer32_356.0.xml" permissions="p" size="0x0F0C"/>
+                <module accessnumbytes="2" baseaddr="0x40000000" endaddr="0x4000002F" id="TIMER_A0" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/Timer_A_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40000400" endaddr="0x4000042F" id="TIMER_A1" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/Timer_A_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40000800" endaddr="0x4000082F" id="TIMER_A2" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/Timer_A_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="2" baseaddr="0x40000C00" endaddr="0x40000C2F" id="TIMER_A3" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/Timer_A_356.0.xml" permissions="p" size="0x0030"/>
+                <module accessnumbytes="4" baseaddr="0x00201000" endaddr="0x0020115B" id="TLV" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/TLV_356.0.xml" permissions="p" size="0x015C"/>
+                <module accessnumbytes="4" baseaddr="0xE0040000" endaddr="0xE0040FFF" id="TPIU" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/TPIU_356.0.xml" permissions="p" size="0x1000"/>
+                <module accessnumbytes="2" baseaddr="0x40004800" endaddr="0x4000480D" id="WDT_A" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/WDT_A_356.0.xml" permissions="p" size="0x000E"/>
+                <module accessnumbytes="4" baseaddr="0x0000" description="" hidden="true" instanceFile="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/common/targetdb/Modules/MSP432/MSP432_JSTATE_2_NotVisible.xml" permissions="p" requestor="MSP432" size="00"/>
+                <property Type="filepathfield" Value="/home/andreas/.ti/TICloudAgent/loaders/ccs_base/emulation/gel/msp432p401r.gel" id="GEL File"/>
+                <property Type="stringfield" Value="msp432p401r.cmd" id="LinkerCmd"/>
+                <property Type="numericfield" Value="0x02000000" id="Access Port Designator"/>
+                <property Type="stringfield" Value=" --gcc --silicon_version=7M4 --code_state=16 --abi=eabi --float_support=FPv4SPD16 -D=__MSP432P401R__ -D=ccs --include_path=${CCS_BASE_ROOT}/arm/include --include_path=${CCS_BASE_ROOT}/arm/include/CMSIS" id="CompilerBuildOptions"/>
+                <property Type="stringfield" Value=" -m=app_msp432p401r_ccs.map -stack=512 -heap=1024" id="LinkerBuildOptions"/>
+                <property Type="stringfield" Value="../src/system_msp432p401r.c,../src/startup_msp432p401r_ccs.c" id="FilesToCopy"/>
+                <property Type="stringfield" Value="msp432p401r.lds" id="GNULinkerCmd"/>
+                <property Type="stringfield" Value=" -mthumb -mcpu=cortex-m4 -march=armv7e-m -mfpu=fpv4-sp-d16 -g -gstrict-dwarf -Wall -mfloat-abi=hard -I${CCS_BASE_ROOT}/arm/include -I${CCS_BASE_ROOT}/arm/include/CMSIS -D__MSP432P401R__ -Dgcc" id="GNUCompilerBuildOptions"/>
+                <property Type="stringfield" Value="-mthumb -g -gstrict-dwarf -Wall" id="GNULinkerBuildOptions"/>
+                <property Type="stringfield" Value="../src/system_msp432p401r.c,../src/startup_msp432p401r_gcc.c" id="GNUFilesToCopy"/>
+                <property Type="stringfield" Value="libc.a" id="RTSlib"/>
+                <property Type="stringfield" Value="true" id="IsElfDefault"/>
+                <property Type="stringfield" Value="little" id="Endianness"/>
+                <property Type="stringfield" Value="4.9.0" id="MinCodegenVersion"/>
+                <property Type="stringfield" Value="TIXDS110_Connection.xml" id="DefaultConnection"/>
+                <property Type="stringfield" Value="-romwidth=8 -memwidth=8" id="HexBuildOptions"/>
+              </cpu>
+            </subpath>
+          </router>
+        </device>
+      </platform>
+    </connection>
+  </configuration>
+
+</configurations>

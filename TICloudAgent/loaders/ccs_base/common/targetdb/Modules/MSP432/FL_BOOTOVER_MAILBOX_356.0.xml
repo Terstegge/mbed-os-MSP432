@@ -1,0 +1,84 @@
+<module id="FL_BOOTOVER_MAILBOX" HW_revision="356.0">
+    <register id="MB_START" width="32" offset="0x0" internal="0" description="Flash MailBox start: 0x0115ACF6">
+    </register>
+    <register id="CMD" width="32" offset="0x4" internal="0" description="Command for Boot override operations.">
+    </register>
+    <register id="JTAG_SWD_LOCK_SECEN" width="32" offset="0x10" internal="0" description="JTAG and SWD Lock Enable">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_INIT_VECT" width="32" offset="0x14" internal="0" description="JTAG and SWD lock AES initialization vector for AES-CBC">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_INIT_VECT" width="32" offset="0x18" internal="0" description="JTAG and SWD lock AES initialization vector for AES-CBC">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_INIT_VECT" width="32" offset="0x1C" internal="0" description="JTAG and SWD lock AES initialization vector for AES-CBC">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_INIT_VECT" width="32" offset="0x20" internal="0" description="JTAG and SWD lock AES initialization vector for AES-CBC">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x24" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x28" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x2C" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x30" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x34" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x38" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x3C" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_AES_SECKEYS" width="32" offset="0x40" internal="0" description="JTAG and SWD lock AES CBC security Keys 0-7.">
+    </register>
+    <register id="JTAG_SWD_LOCK_UNENC_PWD" width="32" offset="0x44" internal="0" description="JTAG and SWD lock unencrypted password">
+    </register>
+    <register id="JTAG_SWD_LOCK_UNENC_PWD" width="32" offset="0x48" internal="0" description="JTAG and SWD lock unencrypted password">
+    </register>
+    <register id="JTAG_SWD_LOCK_UNENC_PWD" width="32" offset="0x4C" internal="0" description="JTAG and SWD lock unencrypted password">
+    </register>
+    <register id="JTAG_SWD_LOCK_UNENC_PWD" width="32" offset="0x50" internal="0" description="JTAG and SWD lock unencrypted password">
+    </register>
+    <register id="JTAG_SWD_LOCK_ACK" width="32" offset="0x54" internal="0" description="Acknowledgment for JTAG and SWD Lock command">
+    </register>
+    <register id="BSL_ENABLE" width="32" offset="0x1E0" internal="0" description="BSL Enable.">
+    </register>
+    <register id="BSL_START_ADDRESS" width="32" offset="0x1E4" internal="0" description="Contains the pointer to the BSL function.">
+    </register>
+    <register id="BSL_PARAMETERS" width="32" offset="0x1E8" internal="0" description="BSL hardware invoke conifguration field.">
+    </register>
+    <register id="BSL_ACK" width="32" offset="0x1F4" internal="0" description="Acknowledgment for the BSL Configuration Command">
+    </register>
+    <register id="JTAG_SWD_LOCK_ENCPAYLOADADD" width="32" offset="0x1F8" internal="0" description="Start address where the payload is loaded in the device.">
+    </register>
+    <register id="JTAG_SWD_LOCK_ENCPAYLOADLEN" width="32" offset="0x1FC" internal="0" description="Length of the encrypted payload in bytes">
+    </register>
+    <register id="JTAG_SWD_LOCK_DST_ADDR" width="32" offset="0x200" internal="0" description="Destination address where the final data needs to be stored into the device.">
+    </register>
+    <register id="ENC_UPDATE_ACK" width="32" offset="0x204" internal="0" description="Acknowledgment for JTAG and SWD Lock Encrypted Update Command">
+    </register>
+    <register id="FACTORY_RESET_ENABLE" width="32" offset="0x250" internal="0" description="Enable/Disable Factory Reset">
+    </register>
+    <register id="FACTORY_RESET_PWDEN" width="32" offset="0x254" internal="0" description="Factory reset password enable">
+    </register>
+    <register id="FACTORY_RESET_PWD" width="32" offset="0x258" internal="0" description="128-bit Password for factory reset to be saved into the device.">
+    </register>
+    <register id="FACTORY_RESET_PWD" width="32" offset="0x25C" internal="0" description="128-bit Password for factory reset to be saved into the device.">
+    </register>
+    <register id="FACTORY_RESET_PWD" width="32" offset="0x260" internal="0" description="128-bit Password for factory reset to be saved into the device.">
+    </register>
+    <register id="FACTORY_RESET_PWD" width="32" offset="0x264" internal="0" description="128-bit Password for factory reset to be saved into the device.">
+    </register>
+    <register id="FACTORY_RESET_PARAMS_ACK" width="32" offset="0x268" internal="0" description="Acknowledgment for the Factory Reset Params Command">
+    </register>
+    <register id="FACTORY_RESET_PASSWORD" width="32" offset="0x270" internal="0" description="128-bit Password for factory reset.">
+    </register>
+    <register id="FACTORY_RESET_PASSWORD" width="32" offset="0x274" internal="0" description="128-bit Password for factory reset.">
+    </register>
+    <register id="FACTORY_RESET_PASSWORD" width="32" offset="0x278" internal="0" description="128-bit Password for factory reset.">
+    </register>
+    <register id="FACTORY_RESET_PASSWORD" width="32" offset="0x27C" internal="0" description="128-bit Password for factory reset.">
+    </register>
+    <register id="FACTORY_RESET_ACK" width="32" offset="0x280" internal="0" description="Acknowledgment for the Factory Reset Command">
+    </register>
+    <register id="MB_END" width="32" offset="0x28C" internal="0" description="Mailbox end">
+    </register>
+</module>

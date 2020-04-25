@@ -15,29 +15,36 @@ mbed compile -t GCC_ARM -m MSP432
 
 ...
 
-Link: bluepill
-Elf2Bin: bluepill
-| Module                           |         .text |       .data |        .bss |
-|----------------------------------|---------------|-------------|-------------|
-| TARGET_BLUEPILL/PeripheralPins.o |         0(+0) |       0(+0) |       0(+0) |
-| TARGET_BLUEPILL/device           |     572(+572) |       0(+0) |       0(+0) |
-| [fill]                           |       50(+50) |       4(+4) |     16(+16) |
-| [lib]/c.a                        |   4792(+4792) | 2108(+2108) |     89(+89) |
-| [lib]/gcc.a                      |     760(+760) |       0(+0) |       0(+0) |
-| [lib]/misc                       |     180(+180) |       4(+4) |     28(+28) |
-| main.o                           |       48(+48) |       0(+0) |       0(+0) |
-| mbed-os/drivers                  |       60(+60) |       0(+0) |       0(+0) |
-| mbed-os/hal                      |   1356(+1356) |       4(+4) |     66(+66) |
-| mbed-os/platform                 |   4002(+4002) |   260(+260) |   220(+220) |
-| mbed-os/rtos                     |   6386(+6386) |   168(+168) | 5973(+5973) |
-| mbed-os/targets                  |   5438(+5438) |       4(+4) |   368(+368) |
-| Subtotals                        | 23644(+23644) | 2552(+2552) | 6760(+6760) |
-Total Static RAM memory (data + bss): 9312(+9312) bytes
-Total Flash memory (text + data): 26196(+26196) bytes
+Link: mbed-os-MSP432
+Elf2Bin: mbed-os-MSP432
+| Module                           |     .text |    .data |     .bss |
+|----------------------------------|-----------|----------|----------|
+| TARGET_MSP432/PeripheralPins.o   |     0(+0) |    0(+0) |    0(+0) |
+| TARGET_MSP432/TARGET_MSP432P401R |  1134(+0) |    8(+0) |    8(+0) |
+| TARGET_MSP432/gpio_api.o         |   298(+0) |    0(+0) |    0(+0) |
+| TARGET_MSP432/gpio_irq_api.o     |   256(+0) |    0(+0) |  244(+0) |
+| TARGET_MSP432/gpio_msp432.o      |     0(+0) |   40(+0) |    0(+0) |
+| TARGET_MSP432/i2c_api.o          |   220(+0) |    0(+0) |   16(+0) |
+| TARGET_MSP432/pinmap.o           |   408(+0) |    0(+0) |   40(+0) |
+| TARGET_MSP432/serial_api.o       |   348(+0) |    0(+0) |   32(+0) |
+| TARGET_MSP432/spi_api.o          |   224(+0) |    0(+0) |   32(+0) |
+| TARGET_MSP432/us_ticker_api.o    |   252(+0) |    0(+0) |    0(+0) |
+| [fill]                           |    48(+0) |    0(+0) |   29(+0) |
+| [lib]/c.a                        |  5056(+0) | 2108(+0) |   89(+0) |
+| [lib]/gcc.a                      |   760(+0) |    0(+0) |    0(+0) |
+| [lib]/misc                       |   180(+0) |    4(+0) |   28(+0) |
+| main.o                           |    42(+0) |    0(+0) |    0(+0) |
+| mbed-os/drivers                  |    60(+0) |    0(+0) |    0(+0) |
+| mbed-os/hal                      |  1422(+0) |    4(+0) |   67(+0) |
+| mbed-os/platform                 |  3850(+0) |  260(+0) |  218(+0) |
+| mbed-os/rtos                     |  6402(+0) |  168(+0) | 5973(+0) |
+| Subtotals                        | 20960(+0) | 2592(+0) | 6776(+0) |
+Total Static RAM memory (data + bss): 9368(+0) bytes
+Total Flash memory (text + data): 23552(+0) bytes
 
-Image: ./BUILD/BLUEPILL/GCC_ARM/bluepill.bin
+Image: ./BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-MSP432.bin
 ```
 
 ### Note
 
-This application has not (yet) been tested on the Bluepill board.
+This application has been tested on the MSP432 board!

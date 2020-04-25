@@ -1,17 +1,21 @@
 # MSP432 launchpad support for Mbed OS 6 (unreleased)
 
-This is an initial configuration for the [MSP432 Launchpad](https://www.ti.com/tool/MSP-EXP432P401R) board for the upcoming version of Mbed OS 6 (unreleased at this time).
+This is an initial configuration for the [MSP432 Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
+board for the upcoming version of Mbed OS 6 (unreleased at this time).
 
-It shows how to create a custom board support based on Mbed OS and how to compile a simple Blinky application.
+The main application (main.cpp) is a simple Blinky example.
 
-Note this project makes uses of the full Mbed OS with RTOS included. It's possible to make changes in the configuration to support the Baremetal profile and reduce memory requirements - see [this](https://os.mbed.com/docs/mbed-os/v5.15/reference/mbed-os-bare-metal.html).
+This project makes uses of the full Mbed OS with RTOS included.
+It's possible to make changes in the configuration to support the
+Baremetal profile and reduce memory requirements - see
+[this](https://os.mbed.com/docs/mbed-os/v5.15/reference/mbed-os-bare-metal.html).
 
 ### Import and compile
 
 ```
 mbed import https://github.com/Terstegge/mbed-os-MSP432.git
 cd mbed-os-MSP432
-mbed compile -t GCC_ARM -m MSP432
+mbed compile -t GCC_ARM -m MSP432_LAUNCHPAD
 
 ...
 

@@ -68,6 +68,9 @@
                 "value": 0
             }
         },
+       "overrides": {
+            "tickless-from-us-ticker": true
+        },
         "device_has": [
             "ANALOGIN",
             "I2C",
@@ -107,10 +110,7 @@
         ],
         "overrides": {
             "hfxt_hz": 48000000,
-            "mclk_select": "HFXT",
-            "smclk_select": "HFXT",
-            "smclk_div": "DIV2",
-            "adc_auto_scan": 1
+            "lfxt_hz": 32768
         },
         "release_versions": [
             "2",

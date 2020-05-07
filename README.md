@@ -1,7 +1,48 @@
 # MSP432 launchpad support for Mbed OS 6 (unreleased)
 
-This is an initial configuration for the [MSP432 Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
+This project demonstrates how to use the
+[MSP432 Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
+with the upcoming version of Mbed OS 6 (unreleased at this time).
+It uses the custom board support based on
+Mbed OS to compile and run a simple Blinky
+application, which will output some text
+via the backchannel UART and blink the RGB
+LED on the MSP432 launchpad.
+
+### Import Project
+
+```
+mbed import https://github.com/Terstegge/mbed-os-MSP432.git
+cd mbed-os-MSP432
+```
+
+### Compile Project
+
+When using Mbed CLI, you first have to set the path to the ARM compiler:
+```
+mbed config GCC_ARM_PATH <em>\<path to ARM GCC binary folder\></em>
+```
+e.g.
+```
+mbed config GCC_ARM_PATH /usr/local/gcc-arm-none-eabi-9-2019-q4-major/bin
+```
+
+Compile the project by typing
+```
+mbed compile -t GCC_ARM -m MSP432_LAUNCHPAD
+```
+or simply
+```
+mbed compile
+```
+because the TOOLCHAIN and TARGET configurations are already set int
+the `.mbed` configuration file.
+
+
 board for the upcoming version of Mbed OS 6 (unreleased at this time).
+
+It shows how to compile and run a simple Blinky application.
+The project uses the custom board support based on Mbed OS.
 
 The main application (main.cpp) is a simple Blinky example.
 

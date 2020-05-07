@@ -1,15 +1,16 @@
-# MSP432 launchpad support for Mbed OS 6 (unreleased)
+# MSP-EXP432P401R Launchpad support for Mbed OS 6 (unreleased)
 
 This project demonstrates how to use the
-[MSP432 Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
+[MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
 with the upcoming version of Mbed OS 6 (unreleased at this time).
 It uses the custom board support based on Mbed OS to compile and run a
 simple Blinky application, which will output some text via the backchannel
-UART and blink the RGB LED on the MSP432 launchpad. The default toolchain
+UART and blink the RGB LED on the MSP432 Launchpad. The default toolchain
 for this board is GNU ARM since this is the only free toolchain available.
 The ARM and IAR C compilers are also supported, but checked less frequently.
 The latest version of [Mbed Studio](https://os.mbed.com/studio/) (0.9.1)
-using the ARM Compiler 6 should work without problems.
+using the ARM Compiler 6 should work without problems. Follow the steps
+described below to compile and run the Blinky program!
 
 ### Import Project
 
@@ -40,7 +41,7 @@ mbed compile
 ```
 because the default TOOLCHAIN (GCC_ARM) and TARGET (MSP432_LAUNCHPAD)
 configurations are already set int the `.mbed` configuration file.
-The end of the compile output should look like:
+The end of the compile output should look like this:
 ```
 ...
 Link: mbed-os-msp432
@@ -77,7 +78,7 @@ Image: ./BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.bin
 This repository contains the
 [TICloudAgent](https://processors.wiki.ti.com/index.php/TI_Cloud_Agent),
 a small application that facilitates flashing and debugging hardware
-devices from the Texas Instruments. The `bin` folder contains a small
+devices from Texas Instruments. The `bin` folder contains a small
 script which will call the TICloundAgent with the correct parameters.
 The (one and only) command line argument is the `*.elf` executable
 (**not** the `*.bin` file!). So the executable can be downloaded and run by
@@ -141,3 +142,29 @@ compile-time configuration parameters can be shown with
 mbed compile --config -v
 ```
 
+### Serial output
+
+When connected to a Linux PC, the MSP432 Launchpad will show up as
+two virtual serial ports: `/dev/ttyACM0` and `/dev/ttyACM1`.
+The first one is connected to the backchannel UART, the second one
+serves as the debug interface.
+To see the serial output just connect a serial terminal program
+(e.g. gtkterm) of your choice to `/dev/ttyACM0` using the UART
+protocol 8N1 and baudrate 9600.
+
+### Mbed OS updates
+
+The project has a fixed link to the latest Mbed OS version, which is
+known to work with this board (see file `mbed-os.lib`). If you wish
+to upgrade to the latest version, just use git in the subfolder
+`mbed-os`, or simply type
+```
+cd mbed-os
+mbed update <mbed-os hash / tag >
+```
+
+### Board pinout
+
+![MSP-EXP432P401R Launchpad pinout](img/MSP-EXP432P401_Launchpad_Pins.png)
+
+  

@@ -51,27 +51,28 @@ Elf2Bin: mbed-os-msp432
 | Module                           |         .text |     .data |      .bss |
 |----------------------------------|---------------|-----------|-----------|
 | TARGET_MSP432/PeripheralPins.o   |         0(+0) |     0(+0) |     0(+0) |
-| TARGET_MSP432/TARGET_MSP432P401R |   1134(+1134) |     8(+8) |     8(+8) |
+| TARGET_MSP432/TARGET_MSP432P401R |   1194(+1194) |     8(+8) |     8(+8) |
 | TARGET_MSP432/gpio_api.o         |     298(+298) |     0(+0) |     0(+0) |
 | TARGET_MSP432/gpio_irq_api.o     |     256(+256) |     0(+0) | 244(+244) |
-| TARGET_MSP432/gpio_msp432.o      |         0(+0) |   40(+40) |     0(+0) |
+| TARGET_MSP432/gpio_msp432.o      |         0(+0) |   80(+80) |     0(+0) |
 | TARGET_MSP432/i2c_api.o          |     220(+220) |     0(+0) |   16(+16) |
 | TARGET_MSP432/pinmap.o           |     408(+408) |     0(+0) |   40(+40) |
+| TARGET_MSP432/port_api.o         |       84(+84) |     0(+0) |     0(+0) |
 | TARGET_MSP432/serial_api.o       |     348(+348) |     0(+0) |   32(+32) |
 | TARGET_MSP432/spi_api.o          |     224(+224) |     0(+0) |   32(+32) |
 | TARGET_MSP432/us_ticker_api.o    |     252(+252) |     0(+0) |     0(+0) |
-| [fill]                           |       30(+30) |     0(+0) |   14(+14) |
-| [lib]/c_nano.a                   |   2622(+2622) | 100(+100) |   21(+21) |
+| [fill]                           |       34(+34) |     0(+0) |   14(+14) |
+| [lib]/c_nano.a                   |   2842(+2842) | 100(+100) |   21(+21) |
 | [lib]/gcc.a                      |     760(+760) |     0(+0) |     0(+0) |
 | [lib]/misc                       |     180(+180) |     4(+4) |   28(+28) |
-| main.o                           |       50(+50) |     0(+0) |     0(+0) |
-| mbed-os/drivers                  |     160(+160) |     0(+0) |     0(+0) |
+| main.o                           |       92(+92) |     0(+0) |     0(+0) |
+| mbed-os/drivers                  |     188(+188) |     0(+0) |     0(+0) |
 | mbed-os/hal                      |   1596(+1596) |     4(+4) |   67(+67) |
-| mbed-os/platform                 |   4474(+4474) | 260(+260) | 294(+294) |
+| mbed-os/platform                 |   4776(+4776) | 260(+260) | 422(+422) |
 | mbed-os/rtos                     |         4(+4) |     0(+0) |     0(+0) |
-| Subtotals                        | 13016(+13016) | 416(+416) | 796(+796) |
-Total Static RAM memory (data + bss): 1212(+1212) bytes
-Total Flash memory (text + data): 13432(+13432) bytes
+| Subtotals                        | 13756(+13756) | 456(+456) | 924(+924) |
+Total Static RAM memory (data + bss): 1380(+1380) bytes
+Total Flash memory (text + data): 14212(+14212) bytes
 
 Image: ./BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.bin
 ```
@@ -172,4 +173,281 @@ mbed update <mbed-os hash / tag >
 
 ### Testing
 
-The board has been   
+The board can be tested with all available automatic Mbed OS tests.
+To do this, first edit the file `mbed_app.json` to use the full Mbed OS
+functionality and the standard runtime c library. The file should look
+like this:
+```
+{
+    "target_overrides": {
+        "*": {
+            "target.dco_rsel"     : "DCO_3MHz",
+            "target.dco_tune"     :  0,
+            "target.mclk_select"  : "HFXT",
+            "target.mclk_div"     : "DIV1",
+            "target.smclk_select" : "HFXT",
+            "target.smclk_div"    : "DIV2",
+            "target.adc_auto_scan": 1
+        }
+    }
+}
+
+```
+Then run
+```
+mbed test --compile
+```
+to compile all available tests for this board. After that, generate
+a list of the test with the command
+```
+mbed test --compile-list > tests.list
+```
+Now you can use a little program (written in C++) to automatically
+run all available test. Currently only a linux 64bit binary is
+provided in the bin folder. There will be better support for
+other platforms in the future.
+Start the tests by typing
+```
+bin/mbed_manual_testing tests.list GCC_ARM | tee tests.log
+```
+Running all tests will take a while (approx. 20-30 minutes). When there
+are line like `Binary not found` this means that the respective test
+is not available for this board (e.g. no flash filesystem).
+The output during testing should look like:
+```
+**************************************************************
+* mbed-os-features-device_key-tests-device_key-functionality *
+**************************************************************
+
+Binary not found. Test skipped!!
+
+*****************************************************************
+* mbed-os-features-frameworks-utest-tests-unit_tests-basic_test *
+*****************************************************************
+
+Download binary ...
+Run test ...
+[1588888394.29][HTST][INF] host test executor ver. 0.0.12
+[1588888394.29][HTST][INF] copy image onto target... SKIPPED!
+[1588888394.29][HTST][INF] starting host test process...
+[1588888394.29][CONN][INF] starting connection process...
+[1588888394.29][CONN][INF] notify event queue about extra 60 sec timeout for serial port pooling
+[1588888394.29][CONN][INF] initializing serial port listener... 
+[1588888394.29][HTST][INF] setting timeout to: 60 sec
+[1588888394.29][SERI][INF] serial(port=/dev/ttyACM0, baudrate=9600, read_timeout=0.01, write_timeout=5)
+[1588888394.29][SERI][TXD] mbedmbedmbedmbedmbedmbedmbedmbedmbedmbed
+[1588888394.29][CONN][INF] sending up to 2 __sync packets (specified with --sync=2)
+[1588888394.29][CONN][INF] sending preamble 'b29d6fae-7543-4d47-9147-48421e4b87fc'
+[1588888394.29][SERI][TXD] {{__sync;b29d6fae-7543-4d47-9147-48421e4b87fc}}
+[1588888394.43][CONN][RXD] mbedmbedmbedmbedmbedmbedmbedmbed
+[1588888394.48][CONN][INF] found SYNC in stream: {{__sync;b29d6fae-7543-4d47-9147-48421e4b87fc}} it is #0 sent, queued...
+[1588888394.48][HTST][INF] sync KV found, uuid=b29d6fae-7543-4d47-9147-48421e4b87fc, timestamp=1588888394.481540
+[1588888394.50][CONN][INF] found KV pair in stream: {{__version;1.3.0}}, queued...
+[1588888394.50][HTST][INF] DUT greentea-client version: 1.3.0
+[1588888394.53][CONN][INF] found KV pair in stream: {{__timeout;20}}, queued...
+[1588888394.53][HTST][INF] setting timeout to: 20 sec
+[1588888394.56][CONN][INF] found KV pair in stream: {{__host_test_name;default_auto}}, queued...
+[1588888394.56][HTST][INF] host test class: '<class 'mbed_os_tools.test.host_tests.default_auto.DefaultAuto'>'
+[1588888394.56][HTST][INF] host test setup() call...
+[1588888394.56][HTST][INF] CALLBACKs updated
+[1588888394.56][HTST][INF] host test detected: default_auto
+[1588888394.58][CONN][INF] found KV pair in stream: {{__testcase_count;2}}, queued...
+[1588888394.61][CONN][RXD] >>> Running 2 test cases...
+[1588888394.65][CONN][INF] found KV pair in stream: {{__testcase_name;Simple Test}}, queued...
+[1588888394.69][CONN][RXD] 
+[1588888394.69][CONN][INF] found KV pair in stream: {{__testcase_name;Repeating Test}}, queued...
+[1588888394.72][CONN][RXD] >>> Running case #1: 'Simple Test'...
+[1588888394.75][CONN][INF] found KV pair in stream: {{__testcase_start;Simple Test}}, queued...
+[1588888394.80][CONN][INF] found KV pair in stream: {{__testcase_finish;Simple Test;1;0}}, queued...
+[1588888394.84][CONN][RXD] >>> 'Simple Test': 1 passed, 0 failed
+[1588888394.84][CONN][RXD] 
+[1588888394.88][CONN][RXD] >>> Running case #2: 'Repeating Test'...
+[1588888394.92][CONN][INF] found KV pair in stream: {{__testcase_start;Repeating Test}}, queued...
+[1588888394.96][CONN][RXD] Setting up for 'Repeating Test'
+[1588888395.00][CONN][INF] found KV pair in stream: {{__testcase_finish;Repeating Test;1;0}}, queued...
+[1588888395.04][CONN][RXD] >>> 'Repeating Test': 1 passed, 0 failed
+[1588888395.04][CONN][RXD] 
+[1588888395.08][CONN][RXD] >>> Running case #2: 'Repeating Test'...
+[1588888395.13][CONN][INF] found KV pair in stream: {{__testcase_start;Repeating Test}}, queued...
+[1588888395.16][CONN][RXD] Setting up for 'Repeating Test'
+[1588888395.20][CONN][INF] found KV pair in stream: {{__testcase_finish;Repeating Test;2;0}}, queued...
+[1588888395.24][CONN][RXD] >>> 'Repeating Test': 2 passed, 0 failed
+[1588888395.25][CONN][RXD] 
+[1588888395.29][CONN][RXD] >>> Test cases: 2 passed, 0 failed
+[1588888395.31][CONN][INF] found KV pair in stream: {{__testcase_summary;2;0}}, queued...
+[1588888395.33][CONN][INF] found KV pair in stream: {{end;success}}, queued...
+[1588888395.33][HTST][INF] __notify_complete(True)
+[1588888395.33][HTST][INF] __exit_event_queue received
+[1588888395.33][HTST][INF] test suite run finished after 0.81 sec...
+[1588888395.34][CONN][INF] found KV pair in stream: {{__exit;0}}, queued...
+[1588888395.34][CONN][INF] received special event '__host_test_finished' value='True', finishing
+[1588888395.35][HTST][INF] CONN exited with code: 0
+[1588888395.35][HTST][INF] Some events in queue
+[1588888395.35][HTST][INF] stopped consuming events
+[1588888395.35][HTST][INF] host test result() call skipped, received: True
+[1588888395.35][HTST][WRN] missing __exit event from DUT
+[1588888395.35][HTST][INF] calling blocking teardown()
+[1588888395.35][HTST][INF] teardown() finished
+[1588888395.35][HTST][INF] {{result;success}}
+
+
+*************************************************************************
+* mbed-os-features-frameworks-utest-tests-unit_tests-basic_test_default *
+*************************************************************************
+
+Download binary ...
+Run test ...
+[1588888399.84][HTST][INF] host test executor ver. 0.0.12
+[1588888399.84][HTST][INF] copy image onto target... SKIPPED!
+[1588888399.84][HTST][INF] starting host test process...
+[1588888399.85][CONN][INF] starting connection process...
+[1588888399.85][CONN][INF] notify event queue about extra 60 sec timeout for serial port pooling
+[1588888399.85][CONN][INF] initializing serial port listener... 
+[1588888399.85][SERI][INF] serial(port=/dev/ttyACM0, baudrate=9600, read_timeout=0.01, write_timeout=5)
+[1588888399.85][HTST][INF] setting timeout to: 60 sec
+[1588888399.85][SERI][TXD] mbedmbedmbedmbedmbedmbedmbedmbedmbedmbed
+[1588888399.85][CONN][INF] sending up to 2 __sync packets (specified with --sync=2)
+[1588888399.85][CONN][INF] sending preamble 'e7a5e8c3-e945-4f19-b96c-b42000df3502'
+[1588888399.85][SERI][TXD] {{__sync;e7a5e8c3-e945-4f19-b96c-b42000df3502}}
+[1588888399.98][CONN][RXD] mbedmbedmbedmbedmbedmbedmbedmbed
+[1588888400.04][CONN][INF] found SYNC in stream: {{__sync;e7a5e8c3-e945-4f19-b96c-b42000df3502}} it is #0 sent, queued...
+[1588888400.04][HTST][INF] sync KV found, uuid=e7a5e8c3-e945-4f19-b96c-b42000df3502, timestamp=1588888400.037524
+[1588888400.06][CONN][INF] found KV pair in stream: {{__version;1.3.0}}, queued...
+[1588888400.06][HTST][INF] DUT greentea-client version: 1.3.0
+[1588888400.08][CONN][INF] found KV pair in stream: {{__timeout;10}}, queued...
+[1588888400.08][HTST][INF] setting timeout to: 10 sec
+[1588888400.11][CONN][INF] found KV pair in stream: {{__host_test_name;default_auto}}, queued...
+[1588888400.11][HTST][INF] host test class: '<class 'mbed_os_tools.test.host_tests.default_auto.DefaultAuto'>'
+[1588888400.11][HTST][INF] host test setup() call...
+[1588888400.11][HTST][INF] CALLBACKs updated
+[1588888400.11][HTST][INF] host test detected: default_auto
+[1588888400.13][CONN][INF] found KV pair in stream: {{__testcase_count;2}}, queued...
+[1588888400.17][CONN][RXD] >>> Running 2 test cases...
+[1588888400.21][CONN][INF] found KV pair in stream: {{__testcase_name;Simple Test}}, queued...
+[1588888400.24][CONN][RXD] 
+[1588888400.24][CONN][INF] found KV pair in stream: {{__testcase_name;Repeating Test}}, queued...
+[1588888400.27][CONN][RXD] >>> Running case #1: 'Simple Test'...
+[1588888400.32][CONN][INF] found KV pair in stream: {{__testcase_start;Simple Test}}, queued...
+[1588888400.35][CONN][INF] found KV pair in stream: {{__testcase_finish;Simple Test;1;0}}, queued...
+[1588888400.39][CONN][RXD] >>> 'Simple Test': 1 passed, 0 failed
+[1588888400.39][CONN][RXD] 
+[1588888400.44][CONN][RXD] >>> Running case #2: 'Repeating Test'...
+[1588888400.48][CONN][INF] found KV pair in stream: {{__testcase_start;Repeating Test}}, queued...
+[1588888400.51][CONN][RXD] Setting up for 'Repeating Test'
+[1588888400.55][CONN][INF] found KV pair in stream: {{__testcase_finish;Repeating Test;1;0}}, queued...
+[1588888400.60][CONN][RXD] >>> 'Repeating Test': 1 passed, 0 failed
+[1588888400.60][CONN][RXD] 
+[1588888400.64][CONN][RXD] >>> Running case #2: 'Repeating Test'...
+[1588888400.68][CONN][INF] found KV pair in stream: {{__testcase_start;Repeating Test}}, queued...
+[1588888400.71][CONN][RXD] Setting up for 'Repeating Test'
+[1588888400.76][CONN][INF] found KV pair in stream: {{__testcase_finish;Repeating Test;2;0}}, queued...
+[1588888400.80][CONN][RXD] >>> 'Repeating Test': 2 passed, 0 failed
+[1588888400.81][CONN][RXD] 
+[1588888400.84][CONN][RXD] >>> Test cases: 2 passed, 0 failed
+[1588888400.86][CONN][INF] found KV pair in stream: {{__testcase_summary;2;0}}, queued...
+[1588888400.88][CONN][INF] found KV pair in stream: {{end;success}}, queued...
+[1588888400.89][HTST][INF] __notify_complete(True)
+[1588888400.89][HTST][INF] __exit_event_queue received
+[1588888400.89][HTST][INF] test suite run finished after 0.81 sec...
+[1588888400.89][CONN][INF] found KV pair in stream: {{__exit;0}}, queued...
+[1588888400.90][CONN][INF] received special event '__host_test_finished' value='True', finishing
+[1588888400.90][HTST][INF] CONN exited with code: 0
+[1588888400.90][HTST][INF] Some events in queue
+[1588888400.90][HTST][INF] stopped consuming events
+[1588888400.90][HTST][INF] host test result() call skipped, received: True
+[1588888400.90][HTST][WRN] missing __exit event from DUT
+[1588888400.90][HTST][INF] calling blocking teardown()
+[1588888400.90][HTST][INF] teardown() finished
+[1588888400.90][HTST][INF] {{result;success}}
+
+
+**************************************************************************
+* mbed-os-features-frameworks-utest-tests-unit_tests-case_async_validate *
+**************************************************************************
+
+Download binary ...
+Run test ...
+[1588888405.38][HTST][INF] host test executor ver. 0.0.12
+[1588888405.38][HTST][INF] copy image onto target... SKIPPED!
+[1588888405.38][HTST][INF] starting host test process...
+[1588888405.38][CONN][INF] starting connection process...
+[1588888405.38][CONN][INF] notify event queue about extra 60 sec timeout for serial port pooling
+[1588888405.38][CONN][INF] initializing serial port listener... 
+[1588888405.38][SERI][INF] serial(port=/dev/ttyACM0, baudrate=9600, read_timeout=0.01, write_timeout=5)
+[1588888405.38][HTST][INF] setting timeout to: 60 sec
+[1588888405.38][SERI][TXD] mbedmbedmbedmbedmbedmbedmbedmbedmbedmbed
+[1588888405.38][CONN][INF] sending up to 2 __sync packets (specified with --sync=2)
+[1588888405.38][CONN][INF] sending preamble 'eed6739d-1e5f-4c4f-8488-ed71e0e5a53e'
+[1588888405.38][SERI][TXD] {{__sync;eed6739d-1e5f-4c4f-8488-ed71e0e5a53e}}
+[1588888405.52][CONN][RXD] mbedmbedmbedmbedmbedmbedmbedmbed
+[1588888405.57][CONN][INF] found SYNC in stream: {{__sync;eed6739d-1e5f-4c4f-8488-ed71e0e5a53e}} it is #0 sent, queued...
+[1588888405.57][HTST][INF] sync KV found, uuid=eed6739d-1e5f-4c4f-8488-ed71e0e5a53e, timestamp=1588888405.570134
+[1588888405.59][CONN][INF] found KV pair in stream: {{__version;1.3.0}}, queued...
+[1588888405.59][HTST][INF] DUT greentea-client version: 1.3.0
+[1588888405.61][CONN][INF] found KV pair in stream: {{__timeout;15}}, queued...
+[1588888405.61][HTST][INF] setting timeout to: 15 sec
+[1588888405.65][CONN][INF] found KV pair in stream: {{__host_test_name;default_auto}}, queued...
+[1588888405.65][HTST][INF] host test class: '<class 'mbed_os_tools.test.host_tests.default_auto.DefaultAuto'>'
+[1588888405.65][HTST][INF] host test setup() call...
+[1588888405.65][HTST][INF] CALLBACKs updated
+[1588888405.65][HTST][INF] host test detected: default_auto
+[1588888405.67][CONN][INF] found KV pair in stream: {{__testcase_count;6}}, queued...
+[1588888405.70][CONN][RXD] >>> Running 6 test cases...
+[1588888405.76][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Simple Validation}}, queued...
+[1588888405.80][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Multiple Validation}}, queued...
+[1588888405.87][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Premature Validation}}, queued...
+[1588888405.92][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Multiple Premature Validation}}, queued...
+[1588888405.99][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Attributed Validation: Cancel Repeat}}, queued...
+[1588888406.08][CONN][RXD] 
+[1588888406.08][CONN][INF] found KV pair in stream: {{__testcase_name;Validate: Attributed Validation: Enable Repeat Handler}}, queued...
+[1588888406.13][CONN][RXD] >>> Running case #1: 'Validate: Simple Validation'...
+[1588888406.18][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Simple Validation}}, queued...
+[1588888406.23][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Simple Validation;1;0}}, queued...
+[1588888406.30][CONN][RXD] >>> 'Validate: Simple Validation': 1 passed, 0 failed
+[1588888406.30][CONN][RXD] 
+[1588888406.35][CONN][RXD] >>> Running case #2: 'Validate: Multiple Validation'...
+[1588888406.41][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Multiple Validation}}, queued...
+[1588888406.57][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Multiple Validation;1;0}}, queued...
+[1588888406.63][CONN][RXD] >>> 'Validate: Multiple Validation': 1 passed, 0 failed
+[1588888406.63][CONN][RXD] 
+[1588888406.68][CONN][RXD] >>> Running case #3: 'Validate: Premature Validation'...
+[1588888406.74][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Premature Validation}}, queued...
+[1588888406.80][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Premature Validation;1;0}}, queued...
+[1588888406.86][CONN][RXD] >>> 'Validate: Premature Validation': 1 passed, 0 failed
+[1588888406.86][CONN][RXD] 
+[1588888406.93][CONN][RXD] >>> Running case #4: 'Validate: Multiple Premature Validation'...
+[1588888406.99][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Multiple Premature Validation}}, queued...
+[1588888407.06][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Multiple Premature Validation;1;0}}, queued...
+[1588888407.14][CONN][RXD] >>> 'Validate: Multiple Premature Validation': 1 passed, 0 failed
+[1588888407.14][CONN][RXD] 
+[1588888407.22][CONN][RXD] >>> Running case #5: 'Validate: Attributed Validation: Cancel Repeat'...
+[1588888407.28][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Attributed Validation: Cancel Repeat}}, queued...
+[1588888407.46][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Attributed Validation: Cancel Repeat;1;0}}, queued...
+[1588888407.54][CONN][RXD] >>> 'Validate: Attributed Validation: Cancel Repeat': 1 passed, 0 failed
+[1588888407.54][CONN][RXD] 
+[1588888407.62][CONN][RXD] >>> Running case #6: 'Validate: Attributed Validation: Enable Repeat Handler'...
+[1588888407.70][CONN][INF] found KV pair in stream: {{__testcase_start;Validate: Attributed Validation: Enable Repeat Handler}}, queued...
+[1588888407.88][CONN][INF] found KV pair in stream: {{__testcase_finish;Validate: Attributed Validation: Enable Repeat Handler;2;0}}, queued...
+[1588888407.97][CONN][RXD] >>> 'Validate: Attributed Validation: Enable Repeat Handler': 2 passed, 0 failed
+[1588888407.97][CONN][RXD] 
+[1588888408.01][CONN][RXD] >>> Test cases: 6 passed, 0 failed
+[1588888408.04][CONN][INF] found KV pair in stream: {{__testcase_summary;6;0}}, queued...
+[1588888408.05][CONN][INF] found KV pair in stream: {{end;success}}, queued...
+[1588888408.05][HTST][INF] __notify_complete(True)
+[1588888408.05][HTST][INF] __exit_event_queue received
+[1588888408.05][HTST][INF] test suite run finished after 2.44 sec...
+[1588888408.06][CONN][INF] found KV pair in stream: {{__exit;0}}, queued...
+[1588888408.06][CONN][INF] received special event '__host_test_finished' value='True', finishing
+[1588888408.07][HTST][INF] CONN exited with code: 0
+[1588888408.07][HTST][INF] Some events in queue
+[1588888408.07][HTST][INF] stopped consuming events
+[1588888408.07][HTST][INF] host test result() call skipped, received: True
+[1588888408.07][HTST][WRN] missing __exit event from DUT
+[1588888408.07][HTST][INF] calling blocking teardown()
+[1588888408.07][HTST][INF] teardown() finished
+[1588888408.07][HTST][INF] {{result;success}}
+
+```
+After running all the tests, the file `tests.log` can be grepped for all
+lines containing `result;`. Hopefully all tests succeeded.
+

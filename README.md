@@ -1,5 +1,7 @@
 # MSP-EXP432P401R Launchpad support for Mbed OS 6 (unreleased)
 
+![MSP432 Launchpad](img/MSP_Launchpad_small.png)
+
 This project demonstrates how to use the
 [MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
 with the upcoming version of Mbed OS 6 (unreleased at this time).
@@ -111,7 +113,7 @@ Success
 ### Build configuration
 
 The project contains the file `mbed_app.json`, which can be used to
-configure the build process.
+configure Mbed OS and the board configuration.
 ```
 {
     "requires": ["bare-metal"],
@@ -135,8 +137,10 @@ profile is selected, which does not contain the RTOS parts.
 Simply delete this line if you wish to have the full Mbed OS
 functionality. The master CPU clock (MCLK) is configured to use the
 48MHz crystal, the subsystem master clock (SMCLK) is also using the
-48MHz crystal but with a divider of 2. More information on all
-compile-time configuration parameters can be shown with
+48MHz crystal but with a divider of 2. The default clock configuration
+(see file `custom_targets.json`) is the DCO with 3MHz for both, MCLK
+and SMCLK. More information on all compile-time configuration parameters
+can be shown with
 ```
 mbed compile --config -v
 ```
@@ -166,4 +170,6 @@ mbed update <mbed-os hash / tag >
 
 ![MSP-EXP432P401R Launchpad pinout](img/MSP-EXP432P401_Launchpad_Pins.png)
 
-  
+### Testing
+
+The board has been   

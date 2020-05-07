@@ -117,7 +117,6 @@ configure the build process.
     "requires": ["bare-metal"],
     "target_overrides": {
         "*": {
-            "target.lfxt_hz"      :  null,
             "target.c_lib"        : "small",
             "target.dco_rsel"     : "DCO_3MHz",
             "target.dco_tune"     :  0,

@@ -203,17 +203,17 @@ a list of the test with the command
 mbed test --compile-list > tests.list
 ```
 Now you can use a little program (written in C++) to automatically
-run all available test. Currently only a linux 64bit binary is
-provided in the bin folder. There will be better support for
-other platforms in the future.
+run all available test. Currently only a linux 64 bit binary is
+provided in the `bin` folder. There will be better support for
+other platforms in the future (and the source code).
 Start the tests by typing
 ```
 bin/mbed_manual_testing tests.list GCC_ARM | tee tests.log
 ```
 Running all tests will take a while (approx. 20-30 minutes). When there
-are line like `Binary not found` this means that the respective test
-is not available for this board (e.g. no flash filesystem).
-The output during testing should look like:
+are lines like `Binary not found. Test skipped!!` this means that the
+respective test is not available for this board (e.g. there is no
+flash filesystem). The output during testing should look like:
 ```
 **************************************************************
 * mbed-os-features-device_key-tests-device_key-functionality *
@@ -446,7 +446,8 @@ Run test ...
 [1588888408.07][HTST][INF] calling blocking teardown()
 [1588888408.07][HTST][INF] teardown() finished
 [1588888408.07][HTST][INF] {{result;success}}
-
+...
+...
 ```
 After running all the tests, the file `tests.log` can be grepped for all
 lines containing `result;`. Hopefully all tests succeeded.

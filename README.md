@@ -199,7 +199,7 @@ Then run
 mbed test --compile
 ```
 to compile all available tests for this board. After that, generate
-a list of the test with the command
+a list of the tests with the command
 ```
 mbed test --compile-list > tests.list
 ```

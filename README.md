@@ -174,10 +174,10 @@ mbed update <mbed-os hash / tag >
 
 ### Testing
 
-The board can be tested manually with all available automatic Mbed OS tests.
-To do this, first edit the file `mbed_app.json` to use the full Mbed OS
-functionality and the standard runtime C library. The file should look
-like this:
+This Mbed OS port for the MSP432P401R can be tested manually with all
+available Mbed OS tests. To do this, first edit the file `mbed_app.json`
+to use the full Mbed OS functionality and the standard runtime C library.
+The file should look like this:
 ```
 {
     "target_overrides": {

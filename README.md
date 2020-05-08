@@ -7,12 +7,12 @@ This project demonstrates how to use the
 with the upcoming version of Mbed OS 6 (unreleased at this time).
 It uses the custom board support based on Mbed OS to compile and run a
 simple Blinky application, which will output some text via the backchannel
-UART and blink the RGB LED on the MSP432 Launchpad. The default toolchain
-for this board is GNU ARM since this is the only free toolchain available.
-The ARM and IAR C compilers are also supported, but checked less frequently.
-The latest version of [Mbed Studio](https://os.mbed.com/studio/) (0.9.1)
-using the ARM Compiler 6 should work without problems. Follow the steps
-described below to compile and run the Blinky program!
+UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad. The default
+toolchain for this board is GNU ARM since this is the only free toolchain
+available. The ARM and IAR C compilers are also supported, but checked less
+frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
+(0.9.1) using the ARM Compiler 6 should work without problems. Follow the
+steps described below to compile and run the Blinky program!
 
 ### Import Project
 
@@ -41,7 +41,7 @@ or simply
 ```
 mbed compile
 ```
-because the default TOOLCHAIN (GCC_ARM) and TARGET (MSP432_LAUNCHPAD)
+The default TOOLCHAIN (`GCC_ARM`) and TARGET (`MSP432_LAUNCHPAD`)
 configurations are already set int the `.mbed` configuration file.
 The end of the compile output should look like this:
 ```
@@ -76,7 +76,7 @@ Total Flash memory (text + data): 14212(+14212) bytes
 
 Image: ./BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.bin
 ```
-### Download and run the executable
+### Download and run the program
 
 This repository contains the
 [TICloudAgent](https://processors.wiki.ti.com/index.php/TI_Cloud_Agent),
@@ -88,7 +88,8 @@ The (one and only) command line argument is the `*.elf` executable
 typing:
 ```
 bin/upload BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.elf
-
+```
+```
 DSLite version 10.1.0.1986
 Configuring Debugger (may take a few minutes on first launch)...
 	Initializing Register Database...
@@ -153,7 +154,7 @@ two virtual serial ports: `/dev/ttyACM0` and `/dev/ttyACM1`.
 The first one is connected to the backchannel UART, the second one
 serves as the debug interface.
 To see the serial output just connect a serial terminal program
-(e.g. gtkterm) of your choice to `/dev/ttyACM0` using the UART
+(e.g. `gtkterm`) of your choice to `/dev/ttyACM0` using the UART
 protocol 8N1 and baudrate 9600.
 
 ### Mbed OS updates
@@ -173,9 +174,9 @@ mbed update <mbed-os hash / tag >
 
 ### Testing
 
-The board can be tested with all available automatic Mbed OS tests.
+The board can be tested manually with all available automatic Mbed OS tests.
 To do this, first edit the file `mbed_app.json` to use the full Mbed OS
-functionality and the standard runtime c library. The file should look
+functionality and the standard runtime C library. The file should look
 like this:
 ```
 {
@@ -211,9 +212,9 @@ Start the tests by typing
 bin/mbed_manual_testing tests.list GCC_ARM | tee tests.log
 ```
 Running all tests will take a while (approx. 20-30 minutes). When there
-are lines like `Binary not found. Test skipped!!` this means that the
+is output like `Binary not found. Test skipped!!` this means that the
 respective test is not available for this board (e.g. there is no
-flash filesystem). The output during testing should look like:
+flash filesystem). The output during testing should look like this:
 ```
 **************************************************************
 * mbed-os-features-device_key-tests-device_key-functionality *
@@ -449,6 +450,14 @@ Run test ...
 ...
 ...
 ```
-After running all the tests, the file `tests.log` can be grepped for all
-lines containing `result;`. Hopefully all tests succeeded.
+After running all the tests, the file `tests.log` can be searched
+for all lines containing `result;` to check if all tests have
+passed successfully.
 
+### TODOs
+
+* Implement missing Mbed OS APIs: CRC, FLASH, RTC, SLEEP, LOWPOWERTIMER
+* Support for TIMER32
+* Configurable backchannel UART
+* Configurable TIMER_A for us_ticker (currently fixed to TIMER_A3)
+* Support for ADC internal channels (temperature etc.)

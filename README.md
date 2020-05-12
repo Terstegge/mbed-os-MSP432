@@ -114,7 +114,7 @@ Success
 The LEDs should blink now, and the serial output via the backchannel UART
 should be visible. 
 
-### Download and run the program part 2: The Mbed way
+### Download and run the program, part 2: The Mbed way
 
 This Launchpad includes an embedded XDS110 debugging probe. The firmware for
 this probe can operate in different modes. To show and configure these modes

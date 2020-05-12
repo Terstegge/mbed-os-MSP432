@@ -1,2 +1,2 @@
 SCRIPT_PATH=$(dirname "$(realpath -s "$0")")
-"$SCRIPT_PATH"/../TICloudAgent/loaders/ccs_base/DebugServer/bin/DSLite load -c "$SCRIPT_PATH"/../targetConfigs/MSP432P401R.ccxml -f $1
+"$SCRIPT_PATH"/../TICloudAgent/loaders/ccs_base/DebugServer/bin/DSLite load -c "$SCRIPT_PATH"/../TICloudAgent/tmp/ti_cloud_storage/MSP432P401R.ccxml -f $1

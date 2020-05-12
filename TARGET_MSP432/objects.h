@@ -67,7 +67,7 @@ struct i2c_s {
 #if DEVICE_I2C_ASYNCH
     bool            active;
     bool            send_stop;
-    void (*handler)();
+    void          (*handler)();
     uint8_t         event;
     uint8_t         available_events;
 #endif
@@ -91,7 +91,7 @@ struct spi_s {
     __I  uint16_t *EUSCI_IV;
 #if DEVICE_SPI_ASYNCH
     bool            active;
-    void (*handler)();
+    void          (*handler)();
     uint8_t         event;
     uint8_t         available_events;
 #endif

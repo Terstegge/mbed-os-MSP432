@@ -87,9 +87,16 @@ void serial_init(serial_t *obj, PinName tx, PinName rx)
     /* enable the UART module again */
     EUSCI->CTLW0 &= ~EUSCI_A_CTLW0_SWRST;
     /* Set default baud rate */
+#if MBED_CONF_PLATFORM_DEFAULT_SERIAL_BAUD_RATE
+    serial_baud(obj, MBED_CONF_PLATFORM_DEFAULT_SERIAL_BAUD_RATE);
+#else
     serial_baud(obj, 9600);
+#endif
     /* Copy config to stdio structure if needed */
     if (stdio_config) {
+#if MBED_CONF_PLATFORM_STDIO_BAUD_RATE
+        serial_baud(obj, MBED_CONF_PLATFORM_STDIO_BAUD_RATE);
+#endif
         memcpy(&stdio_uart, obj, sizeof(serial_t));
         stdio_uart_inited = 1;
     }
@@ -139,6 +146,8 @@ void serial_format(serial_t *obj, int data_bits, SerialParity parity, int stop_b
     struct serial_s *objs = SERIAL_S(obj);
     /* Get the UART base */
     EUSCI_A_Type *EUSCI = (EUSCI_A_Type *)objs->uart;
+    /* Store the current irq config */
+    uint16_t ie = EUSCI->IE;
     /* put module in reset state */
     EUSCI->CTLW0 |= EUSCI_A_CTLW0_SWRST;
     /* Configure data bits */
@@ -183,6 +192,8 @@ void serial_format(serial_t *obj, int data_bits, SerialParity parity, int stop_b
     }
     /* re-enable the UART module */
     EUSCI->CTLW0 &= ~EUSCI_A_CTLW0_SWRST;
+    /* Retore the irq config */
+    EUSCI->IE = ie;
 }
 
 /** The serial interrupt handler registration
@@ -194,16 +205,9 @@ void serial_format(serial_t *obj, int data_bits, SerialParity parity, int stop_b
 void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id)
 {
     struct serial_s *objs = SERIAL_S(obj);
-    uart_handler = handler;
-    /* UART base addresses are
-     * EUSCI_A0 0x40001000
-     * EUSCI_A1 0x40001400
-     * EUSCI_A2 0x40001800
-     * EUSCI_A3 0x40001c00 */
-    uint8_t index = (((uint32_t)(objs->uart)) >> 10) & 0x3;
+    uart_handler  = handler;
+    uint8_t index = GET_DATA_CHAN(pinmap_function(objs->pin_rx, PinMap_UART_RX));
     serial_irq_ids[index] = id;
-    /* Enable the NVIC irq for this UART */
-    NVIC_EnableIRQ((IRQn_Type)(EUSCIA0_IRQn + index));
 }
 
 /** Configure serial interrupt. This function is used for word-approach
@@ -215,15 +219,22 @@ void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id)
 void serial_irq_set(serial_t *obj, SerialIrq irq, uint32_t enable)
 {
     struct serial_s *objs = SERIAL_S(obj);
+    uint8_t index = GET_DATA_CHAN(pinmap_function(objs->pin_rx, PinMap_UART_RX));
     /* Get the UART base */
     EUSCI_A_Type *EUSCI = (EUSCI_A_Type *)objs->uart;
     switch (irq) {
         case RxIrq:
-            BITBAND_PERI(EUSCI->IE, EUSCI_A_IE_RXIE_OFS) = enable;
+            BITBAND_PERI(EUSCI->IE, EUSCI_A_IE_RXIE_OFS) = enable ? 1 : 0;
             break;
         case TxIrq:
-            BITBAND_PERI(EUSCI->IE, EUSCI_A_IE_TXIE_OFS) = enable;
+            BITBAND_PERI(EUSCI->IE, EUSCI_A_IE_TXIE_OFS) = enable ? 1 : 0;
             break;
+    }
+    /* Enable the NVIC irq for this UART */
+    if (EUSCI->IE & (EUSCI_A_IE_RXIE | EUSCI_A_IE_TXIE)) {
+        NVIC_EnableIRQ((IRQn_Type)(EUSCIA0_IRQn + index));
+    } else {
+        NVIC_DisableIRQ((IRQn_Type)(EUSCIA0_IRQn + index));
     }
 }
 
@@ -371,35 +382,35 @@ const PinMap *serial_rx_pinmap(void)
 /**************************/
 /* UART interrupt handler */
 /**************************/
-void handle_UART_Interrupt(uint8_t index, uint8_t vector)
+void handle_UART_Interrupt(uint8_t index, EUSCI_A_Type * EUSCI)
 {
+    // It is important to NOT clear the IRQ flags here,
+    // because we do not process the serial data here!
     if (uart_handler) {
-        switch (vector) {
-            case 2:
-                uart_handler(serial_irq_ids[index], RxIrq);
-                break;
-            case 4:
-                uart_handler(serial_irq_ids[index], TxIrq);
-                break;
+        if (EUSCI->IFG & EUSCI_A_IFG_RXIFG) {
+            uart_handler(serial_irq_ids[index], RxIrq);
+        }
+        if (EUSCI->IFG & EUSCI_A_IFG_TXIFG) {
+            uart_handler(serial_irq_ids[index], TxIrq);
         }
     }
 }
 
 void EUSCIA0_UART_IRQHandler(void)
 {
-    handle_UART_Interrupt(0, EUSCI_A0->IV);
+    handle_UART_Interrupt(0, EUSCI_A0);
 }
 void EUSCIA1_UART_IRQHandler(void)
 {
-    handle_UART_Interrupt(1, EUSCI_A1->IV);
+    handle_UART_Interrupt(1, EUSCI_A1);
 }
 void EUSCIA2_UART_IRQHandler(void)
 {
-    handle_UART_Interrupt(2, EUSCI_A2->IV);
+    handle_UART_Interrupt(2, EUSCI_A2);
 }
 void EUSCIA3_UART_IRQHandler(void)
 {
-    handle_UART_Interrupt(3, EUSCI_A3->IV);
+    handle_UART_Interrupt(3, EUSCI_A3);
 }
 
 #endif /* DEVICE_SERIAL */

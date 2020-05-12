@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while true
+do
+    sleep 1
+    if [ -b /dev/sda ] && [ ! -d /media/andreas/XDS110 ]
+    then
+        udisksctl mount -b /dev/sda
+    fi
+done
+

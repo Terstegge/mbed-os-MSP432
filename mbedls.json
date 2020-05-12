@@ -1,0 +1,19 @@
+{
+    "04321005": {
+        "daplink_build": "Jun 13 2014 09:55:22", 
+        "daplink_url": "http://mbed.org/device/?code=04321005", 
+        "daplink_version": "0203", 
+        "device_type": "daplink", 
+        "directory_entries": [
+            "ReadMe.txt", 
+            "Status-Done.txt"
+        ], 
+        "mount_point": "/media/andreas/XDS110", 
+        "platform_name": "MSP432_LAUNCHPAD", 
+        "platform_name_unique": "MSP432_LAUNCHPAD[0]", 
+        "product_id": "02a5", 
+        "serial_port": "/dev/ttyACM0", 
+        "vendor_id": "1cbe"
+    }
+}
+

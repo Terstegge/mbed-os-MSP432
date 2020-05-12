@@ -125,6 +125,8 @@ cd TICloudAgent/loaders/ccs_base/common/uscif/xds110
 Connect your Launchpad via USB, and enumerate the connected devices. The
 Launchpad should show up:
 ```
+./xdsdfu -e
+
 USB Device Firmware Upgrade Utility
 Copyright (c) 2008-2019 Texas Instruments Incorporated.  All rights reserved.
 
@@ -203,6 +205,9 @@ Scanning USB buses for supported XDS110 devices...
 
 Setting configuration to number 4 (CMSIS-DAP 2.0)...
 ```
+If you need to switch back to the original state, simply follow the
+instructions above and select mode 1, which is the factory default.
+
 The Launchpad has a 8-character serial number (e.g. M4321005, see above).
 The first 4 characters will be the Mbed device ID, but Mbed OS will not
 accept letters. So we re-program the serial number and reset the board.
@@ -230,7 +235,7 @@ WARNING:mbedls.lstools_base:daplink entry: "0432" not found in platform database
 |------------------|----------------------|-----------------------|--------------|-----------|-----------------|
 | MSP432_LAUNCHPAD | MSP432_LAUNCHPAD[0]  | /media/andreas/XDS110 | /dev/ttyACM0 | 04321005  | 0203            |
 ```
-The board information is taken from the file mbedls.json:
+The board information is taken from the file `mbedls.json`:
 ```
 {
     "04321005": {
@@ -268,15 +273,16 @@ After downloading a program via Drag-n-Drop, the mass storage device will
 leave for a short while, but the USB device itself will stay connected all
 the time. This lead to the problem that my file manager did not mount the
 mass storage device after a download. For Linux users I provide a small
-shell script (`bin/mountXDS110`), which will check in a endless loop if
-the mass storage device (for me `/dev/sda`) is present and mount this
-device if the `<mount_dir>` is not visible. Simply change this script
-to your needs, and let it run in a separate terminal.
+shell script (`bin/mountXDS110`), which will check (in a endless loop) if
+the mass storage device (for me `/dev/sda`) is present but the `<mount_dir>`
+is not visible. In this case the script will automatically perform a
+mount operation. The script can be run in user mode. Simply change this
+script to your needs, and let it run in a separate terminal.
 
 Another problem for me (on Linux) was the `modemmanager`, which connected
-to the UART device and prohibited access to it. You might consider deleting
-this program with `sudo apt-get purge modemmanager`. This problem showed
-up during greentea test.
+to the UART device and prohibited access to it. This problem showed
+up during greentea test. You might consider deleting this program with
+`sudo apt-get purge modemmanager`. 
 
 ### Build configuration
 
@@ -336,8 +342,8 @@ mbed update <mbed-os hash / tag >
 
 ### Testing
 
-This Mbed OS port for the MSP432P401R can be tested manually with all
-available Mbed OS tests. To do this, first edit the file `mbed_app.json`
+This Mbed OS port for the MSP432P401R can run the standard greentea-tests
+for Mbed OS! To do this, first edit the file `mbed_app.json`
 to use the full Mbed OS functionality and the standard runtime C library.
 The file should look like this:
 ```
@@ -365,12 +371,12 @@ prepare the launchpad to look like a Mbed-enabled device as
 described above. Do not forget to run the `mountXDS110` script
 in a separate terminal, if you face the same mount problems as I did.
 
-Now we can run all the tests;
+Now we can run all the tests:
 ```
 mbed test --run | tee test.log
 ```
 The final output should show no errors (86 test suites with 565 test
-cases).
+cases):
 ```
 mbedgt: test suite report:
 | target                   | platform_name    | test suite                                                                           | result | elapsed_time (sec) | copy_method |

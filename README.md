@@ -267,11 +267,19 @@ mbedls
 |------------------|----------------------|-----------------------|--------------|-----------|-----------------|
 | MSP432_LAUNCHPAD | MSP432_LAUNCHPAD[0]  | /media/andreas/XDS110 | /dev/ttyACM0 | 04321005  | 0203            |
 ```
-So we finally have the board **fully** Mbed-enabled :)
+Finally the board shows up as a Mbed-enabled device :) The command `mbed
+detect` will still fail (no supported platforms). It has to be investigated
+how this command retrieves the necessary information.
 
-After downloading a program via Drag-n-Drop, the mass storage device will
+Download the Blinky program via Drag-n-Drop:
+```
+cp BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.bin <mount_dir>
+```
+The LEDs should blink and the output via the backchannel UART should be
+visible. After downloading the program, the mass storage device will
 leave for a short while, but the USB device itself will stay connected all
-the time. This lead to the problem that my file manager did not mount the
+the time (this might be a difference compared to a 'real' daplink probe).
+This leads to the problem that my file manager does not mount the
 mass storage device after a download. For Linux users I provide a small
 shell script (`bin/mountXDS110`), which will check (in a endless loop) if
 the mass storage device (for me `/dev/sda`) is present but the `<mount_dir>`

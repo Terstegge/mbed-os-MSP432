@@ -102,6 +102,9 @@
         "device_name": "MSP432P401R"
     },
     "MSP432_LAUNCHPAD": {
+        "detect_code": [
+            "0432"
+        ],
         "inherits": [
             "MSP432P401R"
         ],

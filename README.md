@@ -209,10 +209,10 @@ If you need to switch back to the original state, simply follow the
 instructions above and select mode 1, which is the factory default.
 
 The Launchpad has a 8-character serial number (e.g. M4321005, see above).
-The first 4 characters will be the Mbed device ID, but Mbed OS will not
-accept letters. So we re-program the serial number and reset the board.
-We change the leading 'M' to '0' and leave the remaining 7 characters as
-they are:
+The first 4 characters will be the Mbed target ID, but Mbed OS will only
+accept hexadecimal characters. So we re-program the serial number and reset
+the board. We change the leading 'M' to '0' and leave the remaining 7
+characters as they are:
 ```
 ./xdsdfu -s 04321005 -r
 
@@ -258,8 +258,8 @@ The board information is taken from the file `mbedls.json`:
 ```
 Change this file so that the `mount_point` points to your `<mount_dir>`, and
 the `serial_port` points to your backchannel UART device. The other entries
-can be left untouched. `mbedls` will complain about the device ID `0432`,
-which is (of course) no official device ID. So we create a mock for this new ID:
+can be left untouched. `mbedls` will complain about the target ID `0432`,
+which is (of course) no official target ID. So we create a mock for this new ID:
 ```
 mbedls -m 0432:MSP432_LAUNCHPAD
 mbedls

@@ -14,6 +14,8 @@ frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
 (0.9.1) using the ARM Compiler 6 should work without problems. Follow the
 steps described below to compile and run the Blinky program!
 
+### Feature support
+
 The following functional items are implemented:
 
 Functional item |
@@ -35,10 +37,18 @@ STDIO_MESSAGES  |
 USTICKER        |
 
 This port to Mbed OS also includes configuration items for
-the clock system and the ADC. The software was written without
-the usage of some intermediate libraries like TIs MSP432Ware
-or the MSP432 SDK, so the memory footprint is quite small.
-Still the source code is very compact and readable.
+the clock system and the ADC. The GPIO interface supports
+the GPIO modes `OpenDrain`, `OpenDrainPullUp`, `OpenSource` and
+`OpenSourcePullDown` using a software emulation (these modes are
+not supported on hardware level). It is also possible to
+assign both, rising and falling interrupt edges to a single
+GPIO pin. SPI, I2C and UART all support the interrupt-driven
+ASYNC modes.
+
+The software was written without the usage of some intermediate
+libraries like TIs MSP432Ware or the MSP432 SDK, so the memory
+footprint is quite small. The source code is very compact and
+readable.
 
 ### Board pinout
 

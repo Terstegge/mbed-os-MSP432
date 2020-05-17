@@ -64,7 +64,7 @@ extern void __iar_program_start(void);
 extern uint32_t CSTACK$$Limit;
 #elif defined(__GNUC__) 
 /* Entry point for the application. */
-extern int _start();
+extern void __cmsis_start(void);
 /* External symbols */
 extern uint32_t __data_load__;
 extern uint32_t __data_start__;
@@ -242,16 +242,10 @@ void Reset_Handler(void)
     // Jump to the main initialization routine.
     __iar_program_start();
 #elif defined(__GNUC__) 
-    uint32_t *pui32Src, *pui32Dest;
-    // Copy the data segment initializers from flash to SRAM.
-    pui32Src = &__data_load__;
-    for (pui32Dest = &__data_start__; pui32Dest < &__data_end__;) {
-        *pui32Dest++ = *pui32Src++;
-    }
     // Call system initialization routine
     SystemInit();
     // Jump to the main initialization routine.
-    _start();
+    __cmsis_start();
 #endif
 }
 

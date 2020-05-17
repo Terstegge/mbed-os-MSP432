@@ -1,40 +1,37 @@
-# MSP-EXP432P401R Launchpad support for Mbed OS 6 (unreleased)
+# MSP-EXP432P401R Launchpad support for Mbed OS 6
 
 ![MSP432 Launchpad](img/MSP_Launchpad_small.png)
 
 This project demonstrates how to use the
 [MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
-with the upcoming version of Mbed OS 6 (unreleased at this time).
-It uses the custom board support based on Mbed OS to compile and run a
-simple Blinky application, which will output some text via the backchannel
-UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad. The default
-toolchain for this board is GNU ARM since this is the only free toolchain
-available. The ARM and IAR C compilers are also supported, but checked less
-frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
+with Mbed OS 6. It uses the custom board support based on Mbed OS to
+compile and run a simple Blinky application, which will output some text
+via the backchannel UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad.
+The default toolchain for this board is GNU ARM since this is the only free
+toolchain available. The ARM and IAR C compilers are also supported, but
+checked less frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
 (0.9.1) using the ARM Compiler 6 should work without problems. Follow the
 steps described below to compile and run the Blinky program!
 
 ### Feature support
 
-The following functional items are implemented:
+The following functional items (see `custom_targets.json`) are implemented:
 
-Functional item |
-:---------------:
-ANALOGIN        |
-I2C             |
-I2C_ASYNCH      |
-I2CSLAVE        |
-INTERRUPTIN     |
-PORTIN          |
-PORTINOUT       |
-PORTOUT         |
-PWMOUT          |
-SERIAL          |
-SPI             |
-SPI_ASYNCH      |
-SPISLAVE        |
-STDIO_MESSAGES  | 
-USTICKER        |
+* ANALOGIN
+* I2C
+* I2C_ASYNCH
+* I2CSLAVE
+* INTERRUPTIN
+* PORTIN
+* PORTINOUT
+* PORTOUT
+* PWMOUT
+* SERIAL
+* SPI
+* SPI_ASYNCH
+* SPISLAVE
+* STDIO_MESSAGES
+* USTICKER
 
 This port to Mbed OS also includes configuration items for
 the clock system and the ADC. The GPIO interface supports
@@ -42,7 +39,8 @@ the GPIO modes `OpenDrain`, `OpenDrainPullUp`, `OpenSource` and
 `OpenSourcePullDown` using a software emulation (these modes are
 not supported on hardware level). It is also possible to
 assign both, rising and falling interrupt edges to a single
-GPIO pin. SPI, I2C and UART all support the interrupt-driven
+GPIO pin at the same time. This is also done with software
+emulation. SPI, I2C and UART all support the interrupt-driven
 ASYNC modes.
 
 The software was written without the usage of some intermediate
@@ -229,8 +227,10 @@ The following configuration was first implemented in version 3.0.0.8
 Beginning with version 3.0.0.5, Drag-n-Drop Flash supports the following
      targets: MSP432, CC3220SF, CC13x0, CC26x0, CC13x2, and CC26x2.
 ```
-For Mbed OS we need a mode with Drag-n-Drop Flash. So we choose the
-mode 4 with all its nice features:
+For Mbed OS we need a mode with Drag-n-Drop Flash. Both, mode 2 and mode 4
+will work. Mode 2 has the advantage that you can continue to use the board
+with TI tools like Code Composer Studio. Here we choose mode 4 with all
+its nice features:
 ```
 ./xdsdfu -c 4
 
@@ -394,13 +394,10 @@ The file should look like this:
 {
     "target_overrides": {
         "*": {
-            "target.dco_rsel"     : "DCO_3MHz",
-            "target.dco_tune"     :  0,
             "target.mclk_select"  : "HFXT",
             "target.mclk_div"     : "DIV1",
             "target.smclk_select" : "HFXT",
             "target.smclk_div"    : "DIV2",
-            "target.adc_auto_scan": 1
         }
     }
 }

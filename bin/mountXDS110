@@ -6,6 +6,7 @@ do
     if [ -b /dev/sda ] && [ ! -d /media/andreas/XDS110 ]
     then
         udisksctl mount -b /dev/sda
+        ls /media/andreas/XDS110/Status*
     fi
 done
 

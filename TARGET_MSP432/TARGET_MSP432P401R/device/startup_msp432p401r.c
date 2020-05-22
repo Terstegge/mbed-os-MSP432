@@ -227,24 +227,23 @@ void (* const interruptVectors[])(void) __attribute__((section(".isr_vector"))) 
 // The reset irq handler
 void Reset_Handler(void)
 {
-    // Halt the WDT already here, because the following copy process
-    // from flash to SRAM (in case of GCC) might take so long that the
-    // WDT kicks in
+    // Halt the WDT already here, because the data and bss copy
+    // processes might take so long that the WDT kicks in:
+    // With 3MHz MCLK, the WDT will reset after 21,85ms.
+    // When a larger data array is copied (e.g. array of size
+    // 16384), the CPU would only have 1,3us time for copying
+    // one array entry. This might not be enough... 
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;
-#if defined(__CC_ARM) || (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
-    // Call system initialization routine
+    // Call system initialization routine. Remember that
+    // data and bss sections are NOT yet initialized, but
+    // copied AFTER this call!
     SystemInit();
-    // Jump to the main initialization routine.
+    // Initialize data and bss sections and jump to main
+#if defined(__CC_ARM) || (defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050))
     __main();
 #elif defined(__ICCARM__)
-    // Call system initialization routine
-    SystemInit();
-    // Jump to the main initialization routine.
     __iar_program_start();
 #elif defined(__GNUC__) 
-    // Call system initialization routine
-    SystemInit();
-    // Jump to the main initialization routine.
     __cmsis_start();
 #endif
 }

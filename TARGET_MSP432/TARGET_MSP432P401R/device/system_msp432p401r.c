@@ -125,10 +125,18 @@ uint32_t SystemCoreClock      = __MASTER_CLOCK;  // the value of MCLK in Hz
 uint32_t SubsystemMasterClock = __SUBSYS_CLOCK;  // the value of SMCLK in Hz
 
 // Global xtal frequencies. If the xtal oscillators are enabled
-// during run-time, the frequencies have to be set here so that
-// SystemCoreClockUpdate can use them.
+// during run-time and are not configured, the frequencies have
+// to be set here so that SystemCoreClockUpdate can use them.
+#ifdef MBED_CONF_TARGET_HFXT_HZ
+uint32_t HfxtFrequency = MBED_CONF_TARGET_HFXT_HZ;
+#else
 uint32_t HfxtFrequency = 0;
+#endif
+#ifdef MBED_CONF_TARGET_LFXT_HZ
+uint32_t LfxtFrequency = MBED_CONF_TARGET_LFXT_HZ;
+#else
 uint32_t LfxtFrequency = 0;
+#endif
 
 //
 // Initialize the system
@@ -178,7 +186,6 @@ void SystemInit(void)
     CS->KEY = CS_KEY_VAL;
     int count;
 #ifdef MBED_CONF_TARGET_HFXT_HZ
-    HfxtFrequency = MBED_CONF_TARGET_HFXT_HZ;
     // Enable the HFXT crystal oscillator.
     // Initialize PJ for HFXT
     PJ->SEL0 |=  BIT3;
@@ -195,7 +202,6 @@ void SystemInit(void)
 #endif
 
 #ifdef MBED_CONF_TARGET_LFXT_HZ
-    LfxtFrequency = MBED_CONF_TARGET_LFXT_HZ;
     // Enable the LFXT crystal oscillator. If the LFXT is not
     // available, the system will switch automatically to
     // REFOCLK with 32768Hz mode (less precision...).
@@ -225,8 +231,9 @@ void SystemInit(void)
     // Lock CS module
     CS->KEY = 0;
 
-    // Update the global clock values.
-    SystemCoreClockUpdate();
+    // Calling SystemCoreClockUpdate() does not make sense
+    // because the global variables will be overwritten by
+    // the system startup routine...
 }
 
 
@@ -244,9 +251,7 @@ void SystemCoreClockUpdate(void)
 {
     // Check which source is selected for MCLK
     switch (CS->CTL1 & CS_CTL1_SELM_MASK) {
-        //////////////////////////
         case CS_CTL1_SELM__LFXTCLK: {
-            //////////////////////////
             // Check if we still have a LFXT fault
             if (CS->IFG & CS_IFG_LFXTIFG) {
                 // According to the TRM, a LFXT fault will
@@ -257,15 +262,11 @@ void SystemCoreClockUpdate(void)
             }
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELM__VLOCLK: {
-            /////////////////////////
             SystemCoreClock = __VLOCLK;
             break;
         }
-        //////////////////////////
         case CS_CTL1_SELM__REFOCLK: {
-            //////////////////////////
             if (CS->CLKEN & CS_CLKEN_REFOFSEL) {
                 SystemCoreClock = __REFOCLK_H;
             } else {
@@ -273,24 +274,18 @@ void SystemCoreClockUpdate(void)
             }
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELM__DCOCLK: {
-            /////////////////////////
             // Set the center frequency
             SystemCoreClock = 1500000 << ((CS->CTL0 & CS_CTL0_DCORSEL_MASK)
                                                    >> CS_CTL0_DCORSEL_OFS);
             SystemCoreClock = calculate_DCO_clock(SystemCoreClock);
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELM__MODOSC: {
-            /////////////////////////
             SystemCoreClock = __MODCLK;
             break;
         }
-        //////////////////////////
         case CS_CTL1_SELM__HFXTCLK: {
-            //////////////////////////
             // Check if we still have a HFXT fault
             if (CS->IFG & CS_IFG_HFXTIFG) {
                 // According to the TRM, a HFXT fault will
@@ -304,9 +299,7 @@ void SystemCoreClockUpdate(void)
     }
     // Check which source is selected for SMCLK
     switch (CS->CTL1 & CS_CTL1_SELS_MASK) {
-        //////////////////////////
         case CS_CTL1_SELS__LFXTCLK: {
-            //////////////////////////
             // Check if we still have a LFXT fault
             if (CS->IFG & CS_IFG_LFXTIFG_OFS) {
                 // According to the TRM, a LFXT fault will
@@ -317,15 +310,11 @@ void SystemCoreClockUpdate(void)
             }
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELS__VLOCLK: {
-            /////////////////////////
             SubsystemMasterClock = __VLOCLK;
             break;
         }
-        //////////////////////////
         case CS_CTL1_SELS__REFOCLK: {
-            //////////////////////////
             if (CS->CLKEN & CS_CLKEN_REFOFSEL) {
                 SubsystemMasterClock = __REFOCLK_H;
             } else {
@@ -333,24 +322,18 @@ void SystemCoreClockUpdate(void)
             }
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELS__DCOCLK: {
-            /////////////////////////
             // Set the center frequency
             SubsystemMasterClock = 1500000 << ((CS->CTL0 & CS_CTL0_DCORSEL_MASK)
                                                         >> CS_CTL0_DCORSEL_OFS);
             SubsystemMasterClock = calculate_DCO_clock(SubsystemMasterClock);
             break;
         }
-        /////////////////////////
         case CS_CTL1_SELS__MODOSC: {
-            /////////////////////////
             SubsystemMasterClock = __MODCLK;
             break;
         }
-        //////////////////////////
         case CS_CTL1_SELS__HFXTCLK: {
-            //////////////////////////
             // Check if we still have a HFXT fault
             if (CS->IFG & CS_IFG_HFXTIFG) {
                 // According to the TRM, a HFXT fault will
@@ -392,7 +375,7 @@ uint32_t calculate_DCO_clock(uint32_t dco_base_clock)
         return dco_base_clock;
     }
     // Convert 10 bits signed int to 16 bits signed int
-    if (__DCOTUNE & 0x200) {
+    if (__DCOTUNE &  0x0200) {
         __DCOTUNE |= 0xFC00;
     }
     // Get calibration data

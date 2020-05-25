@@ -68,7 +68,7 @@
                 "value": 0
             }
         },
-       "overrides": {
+        "overrides": {
             "tickless-from-us-ticker": true
         },
         "device_has": [
@@ -111,12 +111,14 @@
         "supported_form_factors": [
             "LAUNCHPAD_40"
         ],
+        "supported_application_profiles": [
+            "rtos", "bare-metal"
+        ],
         "overrides": {
             "hfxt_hz": 48000000,
             "lfxt_hz": 32768
         },
         "release_versions": [
-            "2",
             "5"
         ]
     }

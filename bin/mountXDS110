@@ -2,11 +2,11 @@
 
 while true
 do
-    sleep 1
+    sleep 3
     if [ -b /dev/sda ] && [ ! -d /media/andreas/XDS110 ]
     then
-        udisksctl mount -b /dev/sda
-        ls /media/andreas/XDS110/Status*
+        udisksctl mount -b /dev/sda      2>/dev/null
+        ls /media/andreas/XDS110/Status* 2>/dev/null
     fi
 done
 

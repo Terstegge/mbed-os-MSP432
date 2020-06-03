@@ -13,6 +13,14 @@ checked less frequently. The latest version of [Mbed Studio](https://os.mbed.com
 (0.9.1) using the ARM Compiler 6 should work without problems. Follow the
 steps described below to compile and run the Blinky program!
 
+### Mbed OS support
+
+
+| Mbed Version  | hash       | Status               |
+|---------------|------------|----------------------|
+| mbed-os-6.0.0 | #165be7939 | Compiles and runs ok |
+
+
 ### Feature support
 
 The following functional items (see `custom_targets.json`) are implemented:

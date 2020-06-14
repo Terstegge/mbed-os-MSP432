@@ -2,16 +2,24 @@
 
 ![MSP432 Launchpad](img/MSP_Launchpad_small.png)
 
-This project demonstrates how to use the
-[MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R)
-with Mbed OS 6. It uses the custom board support based on Mbed OS to
-compile and run a simple Blinky application, which will output some text
-via the backchannel UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad.
+This project is a port of Mbed OS 6 for the
+[MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R).
+It uses the custom board support based on Mbed OS to
+compile and run a simple Blinky application as an example.
+This example program will output some text via the backchannel
+UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad.
 The default toolchain for this board is GNU ARM since this is the only free
 toolchain available. The ARM and IAR C compilers are also supported, but
 checked less frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
 (0.9.1) using the ARM Compiler 6 should work without problems. Follow the
 steps described below to compile and run the Blinky program!
+
+### Host support
+
+Some executables and script files for this project were set up for a
+Linux 64-bit system. Other host systems with a different OS could also
+work, but some tools like the TI cloud agent would have to be installed
+for the respective OS.
 
 ### Mbed OS support
 
@@ -300,10 +308,14 @@ The board information is taken from the file `mbedls.json`:
     }
 }
 ```
-Change this file so that the `mount_point` points to your `<mount_dir>`, and
-the `serial_port` points to your backchannel UART device. The other entries
-can be left untouched. `mbedls` will complain about the target ID `0432`,
-which is (of course) no official target ID. So we create a mock for this new ID:
+Change this file so that ...
+- it starts with the correct board ID (in this case `04321005`)
+- the `mount_point` points to your `<mount_dir>`, and
+- the `serial_port` points to your backchannel UART device.
+
+The other entries can be left untouched.
+`mbedls` will complain about the target ID `0432`, which is (of course)
+no official target ID. So we create a mock for this new ID:
 ```
 mbedls -m 0432:MSP432_LAUNCHPAD
 mbedls
@@ -323,18 +335,18 @@ The LEDs should blink and the output via the backchannel UART should be
 visible. After downloading the program, the mass storage device will
 leave for a short while, but the USB device itself will stay connected all
 the time (this might be a difference compared to a 'real' daplink probe).
-This leads to the problem that my file manager does not mount the
-mass storage device after a download. For Linux users I provide a small
-shell script (`bin/mountXDS110`), which will check (in a endless loop) if
-the mass storage device (for me `/dev/sda`) is present but the `<mount_dir>`
+This leads to the problem that the file manager does not mount the
+mass storage device after a download. For Linux users a small shell script
+(`bin/mountXDS110`) is provided, which will check (in a endless loop) if
+the mass storage device (here `/dev/sda`) is present but the `<mount_dir>`
 is not visible. In this case the script will automatically perform a
 mount operation. The script can be run in user mode. Simply change this
 script to your needs, and let it run in a separate terminal.
 
-Another problem for me (on Linux) was the `modemmanager`, which connected
-to the UART device and prohibited access to it. This problem showed
-up during greentea test. You might consider deleting this program with
-`sudo apt-get purge modemmanager`. 
+Another problem on Linux systems is the `modemmanager`, which connects
+to the UART device and prohibits access to it for about 30s.
+This problem showed up during greentea test. You might consider deleting
+this program with `sudo apt-get purge modemmanager`. 
 
 ### Build configuration
 
@@ -418,9 +430,10 @@ mbed test --compile
 to compile all available tests for this board. To run the tests,
 prepare the launchpad to look like a Mbed-enabled device as 
 described above. Do not forget to run the `mountXDS110` script
-in a separate terminal, if you face the same mount problems as I did.
+in a separate terminal, if you face the same mounting problems as
+described above.
 
-Now we can run all the tests:
+Now you can run all the tests:
 ```
 mbed test --run | tee test.log
 ```

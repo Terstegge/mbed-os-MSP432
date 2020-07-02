@@ -11,7 +11,7 @@ UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad.
 The default toolchain for this board is GNU ARM since this is the only free
 toolchain available. The ARM and IAR C compilers are also supported, but
 checked less frequently. The latest version of [Mbed Studio](https://os.mbed.com/studio/)
-(0.9.1) using the ARM Compiler 6 should work without problems. Follow the
+(1.0) using the ARM Compiler 6 should work without problems. Follow the
 steps described below to compile and run the Blinky program!
 
 ### Host support
@@ -24,10 +24,10 @@ for the respective OS.
 ### Mbed OS support
 
 
-| Mbed Version  | hash       | Status               |
-|---------------|------------|----------------------|
-| mbed-os-6.0.0 | #165be7939 | Compiles and runs ok |
-
+| Mbed Version  | hash       | Status                  |
+|---------------|------------|-------------------------|
+| mbed-os-6.1.0 | #a6207cada | Compiles and runs ok -  |
+|               |            | all greentea tests pass |
 
 ### Feature support
 

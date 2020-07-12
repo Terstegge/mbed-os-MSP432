@@ -26,8 +26,7 @@ for the respective OS.
 
 | Mbed Version  | hash       | Status                  |
 |---------------|------------|-------------------------|
-| mbed-os-6.1.0 | #a6207cada | Compiles and runs ok -  |
-|               |            | all greentea tests pass |
+| mbed-os-6.1.0 | #a6207cada | Compiles and runs ok - all greentea tests pass |
 
 ### Feature support
 

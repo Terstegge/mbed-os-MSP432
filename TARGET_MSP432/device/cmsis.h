@@ -18,10 +18,16 @@
 #ifndef MBED_CMSIS_H
 #define MBED_CMSIS_H
 
+// Undef DIR_H because of name clash:
+// DIR_H is defined in the MSP432 header file
+// as well as in Dir.cpp
 #undef DIR_H
 
 #include "msp.h"
 
+// Undef CS because of name clash:
+// CS is defined in the MSP432 header file
+// as well as in NanostackRfPhyAT86RF215.cpp
 #undef CS
 
 #endif

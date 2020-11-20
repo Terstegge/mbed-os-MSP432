@@ -29,6 +29,7 @@ for the respective OS.
 | mbed-os-6.1.0 | #a6207cada | Compiles and runs ok - all greentea tests pass |
 | mbed-os-6.2.0 | #a2ada7477 | Compiles and runs ok - all greentea tests pass |
 | mbed-os-6.3.0 | #0db72d0cf | Compiles and runs ok - all greentea tests pass |
+| mbed-os-6.5.0 | #f2278567d | Compiles and runs ok - all greentea tests pass |
 
 ### Feature support
 

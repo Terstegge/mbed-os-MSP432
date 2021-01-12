@@ -7,9 +7,9 @@
 #include "mbed.h"
 
 // Blinking rate in milliseconds
-#define BLINKING_RATE_MS 500
+#define BLINKING_RATE  500ms
 // P2.0/P2.1/P2.2 is the RGB LED
-#define RGB_MASK         0x7
+#define RGB_MASK       0x7
 
 int main()
 {
@@ -23,7 +23,7 @@ int main()
         led = !led;
         printf("Writing %d to Port2\n", i);
         rgb = i++;
-        ThisThread::sleep_for(BLINKING_RATE_MS);
+        ThisThread::sleep_for(BLINKING_RATE);
     }
 }
 #endif /* MBED_TEST_MODE */

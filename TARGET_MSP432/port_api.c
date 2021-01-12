@@ -48,6 +48,7 @@ void port_init(port_t *obj, PortName port, int mask, PinDirection dir)
     obj->port_out = PORT_REG(port_base[port], REG_OUT);
     obj->port_dir = PORT_REG(port_base[port], REG_DIR);
     port_dir(obj, dir);
+    port_write(obj, 0); // Initiaize output with 0
 }
 
 /** Set the input port mode

@@ -18,6 +18,19 @@
 #include "PeripheralPins.h"
 #include "PeripheralNames.h"
 #include "cmsis.h"
+#include <stddef.h>
+
+const PinMap * pinmap_find_entry(PinName pin, const PinMap *map)
+{
+    /* Find PinMap entry */
+    while (map->pin != NC) {
+        if (map->pin == pin) {
+            return map;
+        }
+        map++;
+    }
+    return NULL;
+}
 
 const PinMap PinMap_empty[] = {
     { NC, NC, 0 }

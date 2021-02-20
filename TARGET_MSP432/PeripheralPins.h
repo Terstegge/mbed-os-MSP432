@@ -20,6 +20,11 @@
 
 #include "pinmap.h"
 
+/**
+ * Find a matching PinMap entry in a PinMap array
+ */
+const PinMap * pinmap_find_entry(PinName pin, const PinMap *map);
+
 typedef enum {
     SEL0 = 0,
     SEL1 = 1,

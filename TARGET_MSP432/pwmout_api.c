@@ -28,26 +28,26 @@
 #include "pwmout_api.h"
 #include "mbed_assert.h"
 #include <stdbool.h>
+#include <stddef.h>
 
 #if DEVICE_PWMOUT
 
 /** Initialize the pwm out peripheral and configure the pin
  *
  * @param obj The pwmout object to initialize
- * @param pin The pwmout pin to initialize
+ * @param pinmap pointer to structure which holds static pinmap
  */
-void pwmout_init(pwmout_t *obj, PinName pin)
-{
-    /* Get the peripheral name */
-    obj->pwm = (PWMName)pinmap_peripheral(pin, PinMap_PWM);
+void pwmout_init_direct(pwmout_t *obj, const PinMap *pinmap) {
+    /* Check if peripheral is set */
     MBED_ASSERT(obj->pwm != (PWMName)NC);
     /* Fill obj (get the index of the Capture/Compare Register (CCR)) */
-    obj->pin = pin;
-    obj->ccr_index = GET_DATA_CHAN(pinmap_function(pin, PinMap_PWM));
+    obj->pin       = pinmap->pin;
+    obj->pwm       = (PWMName)pinmap->peripheral;
+    obj->ccr_index = GET_DATA_CHAN(pinmap->function);
     obj->pulse     = 0;
     obj->dutyCycle = 0.0f;
     /* Configure PWM pin */
-    pinmap_pinout(pin, PinMap_PWM);
+    pinmap_pinout(pinmap->pin, PinMap_PWM);
     /* Get the TIMER A base */
     Timer_A_Type *TA = (Timer_A_Type *)obj->pwm;
     /* Configure the TIMER A and the CCR */
@@ -58,6 +58,19 @@ void pwmout_init(pwmout_t *obj, PinName pin)
     TA->CCTL[obj->ccr_index] = TIMER_A_CCTLN_OUTMOD_7;
     // Set default period (20ms)
     pwmout_period_us(obj, 20000);
+}
+
+/** Initialize the pwm out peripheral and configure the pin
+ *
+ * @param obj The pwmout object to initialize
+ * @param pin The pwmout pin to initialize
+ */
+void pwmout_init(pwmout_t *obj, PinName pin)
+{
+    /* Find the pinmap entry */
+    const PinMap * res = pinmap_find_entry(pin, PinMap_PWM);
+    MBED_ASSERT(res != NULL);
+    pwmout_init_direct(obj, res);
 }
 
 /** Deinitialize the pwmout object
@@ -158,6 +171,22 @@ void pwmout_period_us(pwmout_t *obj, int us)
     pwmout_write(obj, obj->dutyCycle);
 }
 
+/** Read the PWM period specified in microseconds
+ *
+ * @param obj The pwmout object
+ * @return A int output period
+ */
+int pwmout_read_period_us(pwmout_t *obj) {
+    /* Get the TIMER A base */
+    Timer_A_Type *TA = (Timer_A_Type *)obj->pwm;
+    /* Calculate the real period */
+    int val = TA->CCR[0] + 1;
+    val    *= 1 << ((TA->CTL & TIMER_A_CTL_ID_MASK) >> TIMER_A_CTL_ID_OFS);
+    val    *= (TA->EX0 + 1);
+    val    /= (SubsystemMasterClock / 1000000);
+    return val;
+}
+
 /** Set the PWM pulsewidth specified in seconds, keeping the period the same.
  *
  * @param obj     The pwmout object
@@ -195,6 +224,19 @@ void pwmout_pulsewidth_us(pwmout_t *obj, int us)
     Timer_A_Type *TA = (Timer_A_Type *)obj->pwm;
     // Set the CCR register
     TA->CCR[obj->ccr_index] = obj->pulse;
+}
+
+/** Read the PWM pulsewidth specified in microseconds
+ *
+ * @param obj The pwmout object
+ * @return A int output pulsewitdth
+ */
+int pwmout_read_pulsewidth_us(pwmout_t *obj) {
+    /* Calculate the real pulsewidth */
+    int val = obj->pulse;
+    val *= obj->divider;
+    val /= (SubsystemMasterClock / 1000000);
+    return val;
 }
 
 /** Get the pins that support PWM

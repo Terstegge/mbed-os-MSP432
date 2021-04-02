@@ -532,36 +532,7 @@ void handle_SPI_Interrupt(spi_t *obj)
 {
     struct spi_s *objs = SPI_S(obj);
 
-#if 0
-    uint16_t ifg = *(objs->EUSCI_IFG);
-    if (ifg & EUSCI_B_IFG_RXIFG) {
-        struct buffer_s *rx_buff = &obj->rx_buff;
-        if (rx_buff->pos < rx_buff->length) {
-            ((uint8_t *)rx_buff->buffer)[rx_buff->pos] = *(objs->EUSCI_RXBUF);
-            rx_buff->pos++;
-        }
-        if (rx_buff->pos >= rx_buff->length) {
-            // Disable RX interrupts
-            *(objs->EUSCI_IE) &= ~EUSCI_B_IE_RXIE;
-        }
-    }
-    if (ifg & EUSCI_B_IFG_TXIFG) {
-        struct buffer_s *tx_buff = &obj->tx_buff;
-        if (tx_buff->pos < tx_buff->length) {
-            *(objs->EUSCI_TXBUF) = ((uint8_t *)tx_buff->buffer)[tx_buff->pos];
-            tx_buff->pos++;
-        } else {
-            // Disable interrupts
-            *(objs->EUSCI_IE) = 0;
-            objs->active = false;
-            objs->event  = SPI_EVENT_COMPLETE;
-            objs->handler();
-        }
-    }
-#endif
-
     uint16_t vector = *(objs->EUSCI_IV);
-
     switch (vector) {
         /* UCRXIFG */
         case 0x02: {

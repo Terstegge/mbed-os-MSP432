@@ -26,8 +26,8 @@
 // mbed standard names for UARTs
 STDIO_UART_TX = P1_3,
 STDIO_UART_RX = P1_2,
-USBTX         = P1_3,
-USBRX         = P1_2,
+CONSOLE_TX    = P1_3,
+CONSOLE_RX    = P1_2,
 
 // mbed standard names for LEDs and Buttons
 LED1          = P1_0,

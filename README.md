@@ -447,7 +447,7 @@ Now you can run all the tests:
 ```
 mbed test --run | tee test.log
 ```
-The final output should show no errors (86 test suites with 559 test
+The final output should show no errors (85 test suites with 558 test
 cases):
 ```
 mbedgt: test suite report:

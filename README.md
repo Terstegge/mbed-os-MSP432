@@ -4,7 +4,7 @@
 
 This project is a port of Mbed OS 6 for the
 [MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R).
-Unfortunately, TI has stoppen producing the MSP432Pxxx microcontrollers
+Unfortunately, TI has stopped producing the MSP432Pxxx microcontrollers
 and all related products. So this board is not available any more.
 
 This port uses the custom board support based on Mbed OS to

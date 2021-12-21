@@ -4,10 +4,10 @@
 
 This project is a port of Mbed OS 6 for the
 [MSP-EXP432P401R Launchpad](https://www.ti.com/tool/MSP-EXP432P401R).
-Unfortunatly, TI has stoppen producing the MSP432Pxxx microcontrollers
+Unfortunately, TI has stoppen producing the MSP432Pxxx microcontrollers
 and all related products. So this board is not available any more.
 
-It uses the custom board support based on Mbed OS to
+This port uses the custom board support based on Mbed OS to
 compile and run a simple Blinky application as an example.
 This example program will output some text via the backchannel
 UART and blink the LEDs (RED/RGB) on the MSP432 Launchpad.

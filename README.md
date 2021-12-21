@@ -142,7 +142,7 @@ The (only one) command line argument is the `*.elf` executable
 (**not** the `*.bin` file!). So the executable can be downloaded and run by
 typing:
 ```
-bin/upload BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.elf
+bin/upload BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-MSP432.elf
 ```
 ```
 DSLite version 10.1.0.1986
@@ -157,7 +157,7 @@ GEL: CORTEX_M4_0: GEL Output: Memory Map Initialization Complete
 GEL: CORTEX_M4_0: GEL Output: Halting Watchdog Timer
 GEL: CORTEX_M4_0: WARNING   : On MSP432P401R hitting a breakpoint cannot be detected by the debugger when the device is in low power mode.
                          Click the pause button during debug to check if the device is held at the breakpoint.
-Loading Program: BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.elf
+Loading Program: BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-MSP432.elf
 	Preparing ... 
 	.text: 0 of 15144 at 0x0
 	.data: 0 of 424 at 0x3b28: 97%
@@ -334,7 +334,7 @@ how this command retrieves the necessary information.
 
 Download the Blinky program via Drag-n-Drop:
 ```
-cp BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-msp432.bin <mount_dir>
+cp BUILD/MSP432_LAUNCHPAD/GCC_ARM/mbed-os-MSP432.bin <mount_dir>
 ```
 The LEDs should blink and the output via the backchannel UART should be
 visible. After downloading the program, the mass storage device will
@@ -443,7 +443,7 @@ Now you can run all the tests:
 ```
 mbed test --run | tee test.log
 ```
-The final output should show no errors (85 test suites with 558 test
+The final output should show no errors (84 test suites with 552 test
 cases):
 ```
 mbedgt: test suite report:
